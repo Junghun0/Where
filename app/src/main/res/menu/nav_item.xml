@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="나의정보보기"
+        android:id="@+id/myinfo"
+        android:icon="@drawable/ic_action_name">
+
+
+    </item>
+
+
+    <item android:title="사용법"
+        android:id="@+id/howuse"
+        android:icon="@drawable/setting3">
+
+
+    </item>
+
+    <item android:title="설정">
+        <menu>
+            <item
+                android:id="@+id/first"
+                android:title="알림 ON/OFF"
+                android:icon="@drawable/setting"
+            />
+            <item
+                android:id="@+id/second"
+                android:title="GPS"
+                android:icon="@drawable/setting2"
+                />
+        </menu>
+    </item>
+
+
+    <item android:title="로그아웃">
+    </item>
+
+
+
+
+
+</menu>
