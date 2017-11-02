@@ -13,7 +13,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="Where?"
-            android:textSize="25dp" />
+            android:textSize="28dp" />
     </android.support.v7.widget.Toolbar>
 
 </LinearLayout>

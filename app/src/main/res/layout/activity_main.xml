@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/draw_layout"
-    tools:context="com.example.parkjunghun.where.MainActivity">
+    tools:context="com.example.parkjunghun.where.where.Activity.MainActivity">
     
     <android.support.design.widget.CoordinatorLayout
         android:layout_width="match_parent"
@@ -23,11 +23,16 @@
             android:id="@+id/main_framelayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         </FrameLayout>
 
+        <android.support.v4.view.ViewPager
+            android:id="@+id/main_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </android.support.v4.view.ViewPager>
+
+
     </android.support.design.widget.CoordinatorLayout>
-    
     <android.support.design.widget.NavigationView
         android:id="@+id/main_navigation"
         android:layout_width="wrap_content"

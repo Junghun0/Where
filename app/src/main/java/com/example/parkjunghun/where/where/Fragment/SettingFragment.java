@@ -1,4 +1,4 @@
-package com.example.parkjunghun.where;
+package com.example.parkjunghun.where.where.Fragment;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -7,16 +7,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.parkjunghun.where.R;
+
 /**
  * Created by parkjunghun on 2017. 11. 2..
  */
 
-public class MyInfoFragment extends Fragment {
+public class SettingFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.myinfo_fragment,container,false);
 
+        return inflater.inflate(R.layout.setting_fragment,container,false);
     }
 }

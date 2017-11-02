@@ -10,13 +10,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:src="@drawable/setting4"
         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Where?"
-        android:textSize="20dp"
+        android:textSize="23dp"
         android:textColor="#e9e9ec"/>
 
 </LinearLayout>
