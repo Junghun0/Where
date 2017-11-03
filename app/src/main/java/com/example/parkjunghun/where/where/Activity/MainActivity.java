@@ -71,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         viewPager.setCurrentItem(0);
         viewPager.setAdapter(viewPagerAdapter);
 
+    }
+
+    public void onBackPressed(){
+
 
     }
 }
