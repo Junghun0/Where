@@ -28,6 +28,17 @@
                 android:id="@+id/main_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+
+            <android.support.design.widget.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                app:itemTextColor="#f9f9f9"
+                app:itemIconTint="#7d7d87"
+                app:menu="@menu/nav_bottom_item">
+
+            </android.support.design.widget.BottomNavigationView>
         </FrameLayout>
 
     </android.support.design.widget.CoordinatorLayout>
@@ -40,4 +51,8 @@
         app:headerLayout="@layout/side_bar"
         app:menu="@menu/nav_item">
     </android.support.design.widget.NavigationView>
+
+
+
+
 </android.support.v4.widget.DrawerLayout>

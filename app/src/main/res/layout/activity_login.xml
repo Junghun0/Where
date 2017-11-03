@@ -67,7 +67,7 @@
             android:id="@+id/join_memeber"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="80dp"
+            android:layout_marginLeft="74dp"
             android:gravity="center"
             android:text="회원가입"
             android:textSize="15dp" />

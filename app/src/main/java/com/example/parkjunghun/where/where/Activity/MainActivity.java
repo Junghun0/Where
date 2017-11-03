@@ -2,6 +2,7 @@ package com.example.parkjunghun.where.where.Activity;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -15,10 +16,24 @@ import com.example.parkjunghun.where.R;
 import com.example.parkjunghun.where.where.Adapter.ViewPagerAdapter;
 import com.example.parkjunghun.where.where.Fragment.InfoFragment;
 import com.example.parkjunghun.where.where.Fragment.LogoutFragment;
+import com.example.parkjunghun.where.where.Fragment.Map2Fragment;
+import com.example.parkjunghun.where.where.Fragment.MapFragment;
 import com.example.parkjunghun.where.where.Fragment.MyInfoFragment;
 import com.example.parkjunghun.where.where.Fragment.SettingFragment;
 
 public class MainActivity extends AppCompatActivity {
+    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemselectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            if (item.getItemId() == R.id.mymap) {
+                getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new MapFragment()).addToBackStack(null).commit();
+            }
+            if (item.getItemId() == R.id.mymap2) {
+                getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new Map2Fragment()).disallowAddToBackStack().commit();
+            }
+            return true;
+        }
+    };
     private ViewPager viewPager;
     private DrawerLayout drawerLayout;
 
@@ -31,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
+
+        BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemselectedListener);
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
@@ -70,11 +89,6 @@ public class MainActivity extends AppCompatActivity {
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
         viewPager.setCurrentItem(0);
         viewPager.setAdapter(viewPagerAdapter);
-
     }
 
-    public void onBackPressed(){
-
-
-    }
 }
