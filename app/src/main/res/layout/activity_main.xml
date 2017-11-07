@@ -34,8 +34,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                app:itemTextColor="#f9f9f9"
-                app:itemIconTint="#7d7d87"
+                app:itemTextColor="#f2efef"
+                app:itemIconTint="#388f6c"
                 app:menu="@menu/nav_bottom_item">
 
             </android.support.design.widget.BottomNavigationView>

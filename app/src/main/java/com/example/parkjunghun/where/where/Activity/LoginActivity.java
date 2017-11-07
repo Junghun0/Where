@@ -8,6 +8,9 @@ import android.widget.Button;
 
 import com.example.parkjunghun.where.R;
 
+import static android.support.v7.appcompat.R.styleable.View;
+
+
 public class LoginActivity extends AppCompatActivity {
     Button login_btn;
     Button join_member;

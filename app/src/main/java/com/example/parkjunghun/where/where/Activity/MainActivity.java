@@ -20,7 +20,6 @@ import com.example.parkjunghun.where.where.Fragment.Map2Fragment;
 import com.example.parkjunghun.where.where.Fragment.MapFragment;
 import com.example.parkjunghun.where.where.Fragment.MyInfoFragment;
 import com.example.parkjunghun.where.where.Fragment.SettingFragment;
-
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemselectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
