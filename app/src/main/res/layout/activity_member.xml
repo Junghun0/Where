@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.parkjunghun.where.MemberActivity">
+    tools:context="com.example.parkjunghun.where.where.Activity.MemberActivity">
 
 </android.support.constraint.ConstraintLayout>

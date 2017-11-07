@@ -7,9 +7,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="개인정보화면!!"
+        android:text="로그아웃화면!"
         android:textSize="30dp"
         android:gravity="center"
-        android:textColor="#ededf2"/>
+        android:textColor="#ededf2"
+        />
 
 </LinearLayout>
