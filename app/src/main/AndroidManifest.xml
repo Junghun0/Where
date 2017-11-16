@@ -9,16 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity" />
-        <activity android:name=".LoginActivity">
+        <meta-data
+                    android:name="com.google.android.geo.API_KEY"
+                    android:value="AIzaSyAUa6P6e0tGSh4FCLk78P0DUGrmoUp10so" />
+
+
+        <activity android:name=".where.Activity.RegisterActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MemberActivity" />
-        <activity android:name=".RegisterActivity"></activity>
+        <activity android:name=".where.Activity.MainActivity" />
+        <activity android:name=".where.Activity.Login2Activity" />
+        <activity android:name=".where.Activity.LoginActivity"/>
+        <activity android:name=".where.Activity.FindActivity" />
+        <activity android:name=".where.Activity.ProfileActivity" />
+        <activity android:name=".where.Activity.MemberActivity">
+
+        </activity>
     </application>
 
 </manifest>
