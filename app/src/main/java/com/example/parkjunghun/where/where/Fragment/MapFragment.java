@@ -2,7 +2,9 @@ package com.example.parkjunghun.where.where.Fragment;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.content.Intent;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.BinderThread;
 import android.support.annotation.NonNull;
@@ -37,29 +39,53 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private GoogleMap gMap;
     protected Location lastLocation;
     private com.google.android.gms.maps.MapFragment mapFragment;
+    private LatLng location;
 
     private FusedLocationProviderClient gFusedLocationClient;
     private static final int RC_LOCATION = 1;
 
+    private Button findPhone;
     private Button currentLocation;
+    private Button navigation;
+    private LatLng myphonelocation;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.map_fragment, null);
+        myphonelocation = new LatLng(37.5882784 ,127.0036808);
 
+
+        findPhone = (Button) view.findViewById(R.id.findmyphpne);
+        findPhone.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                gMap.addMarker(new MarkerOptions().position(myphonelocation).title("내폰위치"));
+                gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myphonelocation,14));
+                gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
+            }
+        });
 
         currentLocation = (Button) view.findViewById(R.id.currentlocation);
         currentLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 gMap.clear();
-
-                LatLng location = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-
+                location = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
                 gMap.addMarker(new MarkerOptions().position(location).title("현재위치"));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
+            }
+        });
+
+        navigation = (Button) view.findViewById(R.id.navigation);
+        navigation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse("https://www.google.co.kr/maps/dir/"+lastLocation.getLatitude()+","+lastLocation.getLongitude()+"/"+37.5882784+","+127.0036808));
+                startActivity(intent);
             }
         });
 
@@ -73,8 +99,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mapFragment.getMapAsync(this);
-
-
 
     }
 
