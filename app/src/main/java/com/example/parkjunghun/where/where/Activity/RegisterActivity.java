@@ -23,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     //define view objects
     EditText editTextEmail;
     EditText editTextPassword;
+    EditText editTextPhone;
     Button buttonSignup;
     TextView textviewSingin;
     TextView textviewMessage;
@@ -40,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         textviewSingin= (TextView) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
@@ -57,6 +59,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //사용자가 입력하는 email, password를 가져온다.
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String phone = editTextPhone.getText().toString().trim();
         //email과 password가 비었는지 아닌지를 체크 한다.
         if(TextUtils.isEmpty(email)){
             Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -64,6 +67,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         }
         if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+        }
+        if(TextUtils.isEmpty(phone)){
+            Toast.makeText(this, "Phone을 입력해 주세요.", Toast.LENGTH_SHORT).show();
         }
 
         //email과 password가 제대로 입력되어 있다면 계속 진행된다.
@@ -99,7 +105,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         if(view == textviewSingin) {
             //TODO
-            startActivity(new Intent(this, Login2Activity.class)); //추가해 줄 로그인 액티비티
+            startActivity(new Intent(this, LoginActivity.class)); //추가해 줄 로그인 액티비티
         }
     }
 }

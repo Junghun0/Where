@@ -44,7 +44,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         //유저가 로그인 하지 않은 상태라면 null 상태이고 이 액티비티를 종료하고 로그인 액티비티를 연다.
         if (firebaseAuth.getCurrentUser() == null) {
             finish();
-            startActivity(new Intent(this, Login2Activity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
 
         //유저가 있다면, null이 아니면 계속 진행
@@ -65,7 +65,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         if (view == buttonLogout) {
             firebaseAuth.signOut();
             finish();
-            startActivity(new Intent(this, Login2Activity.class));
+            startActivity(new Intent(this, LoginActivity.class));
         }
         //회원탈퇴를 클릭하면 회원정보를 삭제한다. 삭제전에 컨펌창을 하나 띄워야 겠다.
         if (view == textivewDelete) {

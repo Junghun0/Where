@@ -21,12 +21,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".where.Activity.MainActivity" />
-        <activity android:name=".where.Activity.Login2Activity" />
         <activity android:name=".where.Activity.LoginActivity" />
         <activity android:name=".where.Activity.FindActivity" />
         <activity android:name=".where.Activity.ProfileActivity" />
         <activity android:name=".where.Activity.MemberActivity"></activity>
-        <activity android:name=".where.nnnnnnnnnnnnnnnActivity"></activity>
     </application>
 
 </manifest>

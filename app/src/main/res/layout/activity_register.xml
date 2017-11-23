@@ -40,6 +40,15 @@
         android:hint="Enter password"
         android:inputType="textPassword" />
 
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter phone"
+        android:inputType="number" />
+
     <Button
         android:id="@+id/buttonSignup"
         android:layout_width="200dp"
