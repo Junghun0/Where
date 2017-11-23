@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.mymap) {
-                getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new MapFragment()).addToBackStack(null).commit();
+                viewPager.setCurrentItem(0);
             }
             if (item.getItemId() == R.id.mymap2) {
-                getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new Map2Fragment()).disallowAddToBackStack().commit();
+                viewPager.setCurrentItem(1);
             }
             return true;
         }
