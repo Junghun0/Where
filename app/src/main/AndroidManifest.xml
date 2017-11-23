@@ -17,17 +17,16 @@
 
         <activity android:name=".where.Activity.RegisterActivity">
         </activity>
-        <activity android:name=".where.Activity.MainActivity" >
+        <activity android:name=".where.Activity.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".where.Activity.LoginActivity" />
+        <activity android:name=".where.Activity.MainActivity" />
         <activity android:name=".where.Activity.FindActivity" />
         <activity android:name=".where.Activity.ProfileActivity" />
-        <activity android:name=".where.Activity.MemberActivity"></activity>
     </application>
 
 </manifest>

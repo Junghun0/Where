@@ -49,6 +49,15 @@
         android:hint="Enter phone"
         android:inputType="number" />
 
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="250dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:hint="Enter Name"
+        android:inputType="textPersonName" />
+
     <Button
         android:id="@+id/buttonSignup"
         android:layout_width="200dp"

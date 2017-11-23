@@ -9,13 +9,13 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class FireBaseDataBase {
     private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
+    private DatabaseReference userRef;
+
 
     public FireBaseDataBase(){
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+        userRef = firebaseDatabase.getReference("user");
+
     }
-
-
 
 }

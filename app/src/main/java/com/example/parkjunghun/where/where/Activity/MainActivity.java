@@ -16,11 +16,10 @@ import com.example.parkjunghun.where.R;
 import com.example.parkjunghun.where.where.Adapter.ViewPagerAdapter;
 import com.example.parkjunghun.where.where.Fragment.InfoFragment;
 import com.example.parkjunghun.where.where.Fragment.LogoutFragment;
-import com.example.parkjunghun.where.where.Fragment.Map2Fragment;
-import com.example.parkjunghun.where.where.Fragment.MapFragment;
 import com.example.parkjunghun.where.where.Fragment.MyInfoFragment;
 import com.example.parkjunghun.where.where.Fragment.SettingFragment;
 public class MainActivity extends AppCompatActivity {
+
     private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemselectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager = (ViewPager) findViewById(R.id.main_viewpager);
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getFragmentManager());
-        viewPager.setCurrentItem(0);
+        viewPager.destroyDrawingCache();
         viewPager.setAdapter(viewPagerAdapter);
     }
 

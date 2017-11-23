@@ -24,6 +24,4 @@ public class Map2Fragment extends Fragment {
         View view = inflater.inflate(R.layout.map2_fragment,container,false);
         return view;
     }
-
-
 }

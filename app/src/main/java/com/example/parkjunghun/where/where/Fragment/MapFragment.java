@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.BinderThread;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -25,8 +24,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
@@ -45,7 +42,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private static final int RC_LOCATION = 1;
 
     private Button findPhone;
-    private Button currentLocation;
+    private android.widget.Button currentLocation;
     private Button navigation;
     private LatLng myphonelocation;
 
@@ -60,7 +57,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         findPhone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 gMap.addMarker(new MarkerOptions().position(myphonelocation).title("내폰위치"));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myphonelocation,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
@@ -99,7 +95,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         mapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
         gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
         mapFragment.getMapAsync(this);
-
     }
 
 
