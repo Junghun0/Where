@@ -24,7 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".where.Activity.Login2Activity" />
         <activity android:name=".where.Activity.LoginActivity" />
         <activity android:name=".where.Activity.FindActivity" />
         <activity android:name=".where.Activity.ProfileActivity" />

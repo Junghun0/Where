@@ -22,6 +22,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     EditText editTextEmail;
     EditText editTextPassword;
+    EditText editTextPhone;
     Button buttonSignin;
     TextView textviewSingin;
     TextView textviewMessage;
@@ -42,6 +43,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
+        editTextPhone = (EditText) findViewById(R.id.editTextPhone);
         textviewSingin = (TextView) findViewById(R.id.textViewSignin);
         textviewMessage = (TextView) findViewById(R.id.textviewMessage);
         textviewFindPassword = (TextView) findViewById(R.id.textViewFindpassword);
@@ -58,6 +60,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
+        String phone = editTextPhone.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
@@ -65,6 +68,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         }
         if (TextUtils.isEmpty(password)) {
             Toast.makeText(this, "password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (TextUtils.isEmpty(phone)) {
+            Toast.makeText(this, "phone을 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
