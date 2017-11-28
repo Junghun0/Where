@@ -74,8 +74,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
                             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                            user.delete()
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            user.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             Toast.makeText(ProfileActivity.this, "계정이 삭제 되었습니다.", Toast.LENGTH_LONG).show();
