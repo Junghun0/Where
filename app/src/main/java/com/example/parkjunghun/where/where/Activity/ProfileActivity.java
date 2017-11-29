@@ -2,10 +2,10 @@ package com.example.parkjunghun.where.where.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -16,6 +16,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "ProfileActivity";
@@ -28,6 +30,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private Button buttonLogout;
     private TextView textivewDelete;
 
+    FirebaseUser user;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +44,9 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         textivewDelete = (TextView) findViewById(R.id.textviewDelete);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        userRef = firebaseDatabase.getReference("users");
+
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();
         //유저가 로그인 하지 않은 상태라면 null 상태이고 이 액티비티를 종료하고 로그인 액티비티를 연다.
@@ -48,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         }
 
         //유저가 있다면, null이 아니면 계속 진행
-        FirebaseUser user = firebaseAuth.getCurrentUser();
+        user = firebaseAuth.getCurrentUser();
 
         //textViewUserEmail의 내용을 변경해 준다.
         textViewUserEmail.setText("반갑습니다.\n" + user.getEmail() + "으로 가입하셨습니다.");
@@ -56,9 +64,8 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         //logout button event
         buttonLogout.setOnClickListener(this);
         textivewDelete.setOnClickListener(this);
-
-
     }
+
 
     @Override
     public void onClick(View view) {
@@ -94,6 +101,7 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             alert_confirm.show();
         }
     }
+
 }
 
 

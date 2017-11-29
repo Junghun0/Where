@@ -18,8 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -37,7 +40,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userRef;
-    String key;
     long pressedTime = System.currentTimeMillis();
 
     @Override
@@ -98,7 +100,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
-                            //finish();
+                            finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
                             //에러발생시
@@ -110,6 +112,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 });
 
     }
+    public void readUserData(){
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
 
     public void writeUserdata(View view){
 
@@ -117,17 +133,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         String db_password = ((EditText)findViewById(R.id.editTextPassword)).getText().toString();
         String db_phone = ((EditText)findViewById(R.id.editTextPhone)).getText().toString();
         String db_name = ((EditText)findViewById(R.id.editTextName)).getText().toString();
+
         User user = new User(db_email,db_password,db_phone,db_name);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("users");
-        key = myRef.push().getKey();
+        userRef = firebaseDatabase.getReference("users");
 
-        myRef.child(db_name).setValue(user);
-
-//        myRef.child(key).child("email").setValue(db_email);
-//        myRef.child(key).child("password").setValue(db_password);
-//        myRef.child(key).child("phone").setValue(db_phone);
+        userRef.child(db_name).setValue(user);
     }
 
     //button click event
@@ -161,7 +172,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             }
             else {
                 super.onBackPressed();
-//                finish(); // app 종료 시키기
+                finish(); // app 종료 시키기
             }
         }
     }
