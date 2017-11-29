@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 gMap.addMarker(new MarkerOptions().position(myphonelocation).title("내폰위치"));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myphonelocation,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
+                Log.e("Location", String.valueOf(lastLocation.getLatitude()));
+                Log.e("Location1", String.valueOf(lastLocation.getLongitude()));
             }
         });
 
@@ -69,6 +72,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
                 gMap.clear();
                 location = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
+
                 gMap.addMarker(new MarkerOptions().position(location).title("현재위치"));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
