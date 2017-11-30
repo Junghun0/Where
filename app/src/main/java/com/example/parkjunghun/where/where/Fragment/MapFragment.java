@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.parkjunghun.where.R;
+import com.example.parkjunghun.where.where.Model.Locationinfo;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -24,6 +25,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -47,12 +52,23 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Button navigation;
     private LatLng myphonelocation;
 
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference LocationRef;
+    FirebaseUser user;
+    FirebaseAuth auth;
+
+    String latitude;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.map_fragment, null);
+        final View view = inflater.inflate(R.layout.map_fragment, null);
         myphonelocation = new LatLng(37.5882784 ,127.0036808);
 
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        LocationRef = firebaseDatabase.getReference("Location");
+
+        auth = FirebaseAuth.getInstance();
 
         findPhone = (Button) view.findViewById(R.id.findmyphpne);
         findPhone.setOnClickListener(new View.OnClickListener() {
@@ -61,8 +77,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 gMap.addMarker(new MarkerOptions().position(myphonelocation).title("내폰위치"));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myphonelocation,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
-                Log.e("Location", String.valueOf(lastLocation.getLatitude()));
-                Log.e("Location1", String.valueOf(lastLocation.getLongitude()));
             }
         });
 
@@ -72,10 +86,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
                 gMap.clear();
                 location = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
-
                 gMap.addMarker(new MarkerOptions().position(location).title("현재위치"));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
+                Log.e("location", String.valueOf(location));
             }
         });
 
@@ -84,13 +98,27 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("https://www.google.co.kr/maps/dir/"+lastLocation.getLatitude()+","+lastLocation.getLongitude()+"/"+37.5882784+","+127.0036808));
+                intent.setData(Uri.parse("https://www.google.co.kr/maps/dir/"+lastLocation.getLatitude()+","+lastLocation.getLongitude()+"/"+37.5882784+","+127.0036808));
                 startActivity(intent);
             }
         });
 
         return view;
     }
+
+    public void writeUserdata(View view){
+
+        latitude = String.valueOf(location);
+        String longitude = String.valueOf(lastLocation.getLongitude());
+        String useremail = String.valueOf(user.getEmail());
+
+        Locationinfo locationinfo = new Locationinfo(latitude,longitude,useremail);
+
+        LocationRef = firebaseDatabase.getReference("Location");
+
+        LocationRef.child("CurLocation").setValue(locationinfo);
+    }
+
 
     @Override
     public void onViewCreated(View view, Bundle savedInstance){

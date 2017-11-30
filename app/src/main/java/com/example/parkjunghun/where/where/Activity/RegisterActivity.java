@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -64,6 +65,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //button click event
         buttonSignup.setOnClickListener(this);
         textviewSingin.setOnClickListener(this);
+
+        readUserData();
+
     }
 
     //Firebse creating a new user
@@ -116,12 +120,16 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
+                for(DataSnapshot snapshot : dataSnapshot.getChildren()){
+                    snapshot.child("email").getValue(String.class);
+                }
+                Toast.makeText(getApplicationContext(), "Successed to read value.", Toast.LENGTH_LONG).show();
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.w("error = ", "Failed to read value.", databaseError.toException());
+                Toast.makeText(getApplicationContext(), "Failed to read value.", Toast.LENGTH_LONG).show();
             }
         });
 
