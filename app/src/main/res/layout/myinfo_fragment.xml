@@ -32,7 +32,6 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/username"
-            android:text="아아아"
             android:textSize="15dp"/>
     </LinearLayout>
 
@@ -54,7 +53,6 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/userphone"
-            android:text="010-0000-0000"
             android:textSize="15dp"/>
     </LinearLayout>
 
@@ -75,7 +73,6 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/usermail"
-            android:text="ssss@gmail.com"
             android:textSize="15dp"/>
     </LinearLayout>
 
@@ -97,7 +94,6 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:id="@+id/phonelocation"
-            android:text="111.111.11111"
             android:textSize="15dp"/>
     </LinearLayout>
 

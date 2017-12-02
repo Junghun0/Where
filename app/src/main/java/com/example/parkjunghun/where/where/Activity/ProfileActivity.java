@@ -16,8 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class ProfileActivity extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "ProfileActivity";
@@ -31,8 +29,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
     private TextView textivewDelete;
 
     FirebaseUser user;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,8 +40,6 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
         buttonLogout = (Button) findViewById(R.id.buttonLogout);
         textivewDelete = (TextView) findViewById(R.id.textviewDelete);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        userRef = firebaseDatabase.getReference("users");
 
         //initializing firebase authentication object
         firebaseAuth = FirebaseAuth.getInstance();

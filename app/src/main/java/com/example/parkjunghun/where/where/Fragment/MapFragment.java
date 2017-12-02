@@ -17,7 +17,6 @@ import android.widget.Button;
 import com.example.parkjunghun.where.R;
 import com.example.parkjunghun.where.where.Model.Locationinfo;
 import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -56,8 +55,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     DatabaseReference LocationRef;
     FirebaseUser user;
     FirebaseAuth auth;
-
-    String latitude;
+    Locationinfo locationinfo;
 
     @Nullable
     @Override
@@ -67,6 +65,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         LocationRef = firebaseDatabase.getReference("Location");
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         auth = FirebaseAuth.getInstance();
 
@@ -77,6 +76,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 gMap.addMarker(new MarkerOptions().position(myphonelocation).title("내폰위치"));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myphonelocation,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
+                Log.e("location", String.valueOf(location));
             }
         });
 
@@ -89,7 +89,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 gMap.addMarker(new MarkerOptions().position(location).title("현재위치"));
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
-                Log.e("location", String.valueOf(location));
             }
         });
 
@@ -102,21 +101,24 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 startActivity(intent);
             }
         });
-
         return view;
     }
 
     public void writeUserdata(View view){
 
-        latitude = String.valueOf(location);
-        String longitude = String.valueOf(lastLocation.getLongitude());
-        String useremail = String.valueOf(user.getEmail());
 
-        Locationinfo locationinfo = new Locationinfo(latitude,longitude,useremail);
+        if(user !=null) {
+            String email = user.getEmail();
+            String latitude = String.valueOf(location);
+            String longitude = String.valueOf(lastLocation.getLongitude());
 
-        LocationRef = firebaseDatabase.getReference("Location");
+            locationinfo = new Locationinfo(latitude,longitude,email);
+            LocationRef = firebaseDatabase.getReference("Location");
 
-        LocationRef.child("CurLocation").setValue(locationinfo);
+            LocationRef.child("CurLocation").setValue(locationinfo);
+
+        }
+
     }
 
 
@@ -124,9 +126,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(View view, Bundle savedInstance){
         super.onViewCreated(view, savedInstance);
 
-        mapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-        gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-        mapFragment.getMapAsync(this);
+//        mapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+//        gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+//        mapFragment.getMapAsync(this);
     }
 
 
