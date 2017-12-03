@@ -3,7 +3,10 @@
     package="com.example.parkjunghun.where">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
         android:allowBackup="true"
@@ -16,18 +19,25 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyAUa6P6e0tGSh4FCLk78P0DUGrmoUp10so" />
 
-        <activity android:name=".where.Activity.RegisterActivity">
-        </activity>
-        <activity android:name=".where.Activity.LoginActivity" >
+        <activity android:name=".where.Activity.RegisterActivity" />
+        <activity android:name=".where.Activity.LoginActivity"></activity>
+        <activity android:name=".where.Activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".where.Activity.MainActivity" />
         <activity android:name=".where.Activity.FindActivity" />
         <activity android:name=".where.Activity.ProfileActivity" />
+
+        <receiver android:name=".where.Receiver.SmsbroadCast">
+            <intent-filter android:priority="9999">
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".where.Activity.TEST"/>
     </application>
 
 </manifest>

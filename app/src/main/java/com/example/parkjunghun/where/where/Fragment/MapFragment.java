@@ -17,6 +17,7 @@ import android.widget.Button;
 import com.example.parkjunghun.where.R;
 import com.example.parkjunghun.where.where.Model.Locationinfo;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -66,7 +67,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         firebaseDatabase = FirebaseDatabase.getInstance();
         LocationRef = firebaseDatabase.getReference("Location");
         user = FirebaseAuth.getInstance().getCurrentUser();
-
         auth = FirebaseAuth.getInstance();
 
         findPhone = (Button) view.findViewById(R.id.findmyphpne);
@@ -104,7 +104,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
-    public void writeUserdata(View view){
+   /* public void writeUserdata(View view){
 
 
         if(user !=null) {
@@ -120,15 +120,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         }
 
     }
-
+*/
 
     @Override
     public void onViewCreated(View view, Bundle savedInstance){
         super.onViewCreated(view, savedInstance);
 
-//        mapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-//        gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-//        mapFragment.getMapAsync(this);
+        mapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        mapFragment.getMapAsync(this);
     }
 
 
@@ -154,7 +154,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 }
             });
         } else {
-            EasyPermissions.requestPermissions(this, "This app needs access to your location to know where you are.", RC_LOCATION, perms);
         }
     }
 }

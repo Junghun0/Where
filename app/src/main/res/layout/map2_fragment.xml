@@ -4,12 +4,46 @@
     android:layout_height="match_parent"
     android:background="#343446">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="지도구현2"
-        android:textSize="30dp"
-        android:gravity="center"
-        android:textColor="#ededf2"/>
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:text="노래 설정"
+            android:textSize="20dp"/>
+
+        <Switch
+            android:id="@+id/play_sing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:layout_marginRight="90dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="80dp"
+            android:text="화면 잠금"
+            android:textSize="20dp"/>
+
+        <Switch
+            android:id="@+id/lock_screen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:layout_marginRight="90dp"/>
+    </LinearLayout>
 
 </LinearLayout>
