@@ -22,9 +22,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.Map;
-import java.util.Objects;
-
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     //define view objects
@@ -43,9 +40,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userRef;
-    String db_email;
+    String pass;
+
     long pressedTime = System.currentTimeMillis();
-    Map<String, Objects> usrmap;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +67,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         //button click event
         buttonSignup.setOnClickListener(this);
         textviewSingin.setOnClickListener(this);
-//
-//        userRef.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//
-//                usrmap = (Map<String, Objects>) dataSnapshot.getValue();
-//                Log.e("userinfo", "info = " + usrmap);
-//                Toast.makeText(getApplicationContext(), "Successed to read value.", Toast.LENGTH_LONG).show();
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//                Log.w("error = ", "Failed to read value.", databaseError.toException());
-//                Toast.makeText(getApplicationContext(), "Failed to read value.", Toast.LENGTH_LONG).show();
-//            }
-//        });
 
     }
 
@@ -123,6 +104,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            User user = new User();
+                            user.setName(editTextName.getText().toString());
+                            user.setEmail(editTextEmail.getText().toString());
+                            user.setPhonenum(editTextPhone.getText().toString());
+                            user.setPassword(editTextPassword.getText().toString());
+                            user.setUid(task.getResult().getUser().getUid());
+
+                            FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).setValue(user);
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
@@ -136,27 +125,12 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void writeUserdata(View view) {
-
-        db_email = ((EditText) findViewById(R.id.editTextEmail)).getText().toString();
-        String db_password = ((EditText) findViewById(R.id.editTextPassword)).getText().toString();
-        String db_phone = ((EditText) findViewById(R.id.editTextPhone)).getText().toString();
-        String db_name = ((EditText) findViewById(R.id.editTextName)).getText().toString();
-
-        User user = new User(db_email, db_password, db_phone, db_name);
-
-        userRef = firebaseDatabase.getReference("users");
-
-        userRef.child(db_name).setValue(user);
-    }
-
     //button click event
     @Override
     public void onClick(View view) {
         if (view == buttonSignup) {
             //TODO
             registerUser();
-            writeUserdata(view);
         }
 
         if (view == textviewSingin) {

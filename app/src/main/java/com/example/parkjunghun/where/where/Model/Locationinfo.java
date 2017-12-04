@@ -5,9 +5,9 @@ package com.example.parkjunghun.where.where.Model;
  */
 
 public class Locationinfo {
-    String latitude;
-    String longitude;
-    String email;
+    private String latitude;
+    private String longitude;
+    private String email;
 
     public Locationinfo(){
     }
@@ -17,6 +17,10 @@ public class Locationinfo {
         this.longitude = longitude;
         this.email = email;
     }
+
+    public String getEmail() { return email; }
+
+    public void setEmail(String email) { this.email = email; }
 
     public String getLatitude() {
         return latitude;

@@ -5,20 +5,26 @@ package com.example.parkjunghun.where.where.Model;
  */
 
 public class User {
-    public String email;
-    public String password;
-    public String phonenum;
-    public String name;
+    private String email;
+    private String password;
+    private String phonenum;
+    private String name;
+    private String uid;
 
     public User(){
     }
 
-    public User(String email,String password, String phonenum,String name){
+    public User(String email,String password, String phonenum,String name,String uid){
         this.email  = email;
         this.password = password;
         this.phonenum = phonenum;
         this.name = name;
+        this.uid = uid;
     }
+
+    public String getUid() { return uid; }
+
+    public void setUid(String uid) { this.uid = uid; }
 
     public String getEmail() {
         return email;
