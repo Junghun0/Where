@@ -3,14 +3,12 @@ package com.example.parkjunghun.where.where.Fragment;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.parkjunghun.where.R;
-import com.example.parkjunghun.where.where.Model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -18,9 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
-import java.util.Map;
-import java.util.Objects;
 
 
 /**
@@ -33,9 +28,7 @@ public class MyInfoFragment extends Fragment {
     TextView usermail;
     TextView phonelocation;
 
-    FirebaseUser user;
-    User dbuser;
-    Map<String, Objects> usrmap;
+    FirebaseUser firebaseUser;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference userRef;
 
@@ -48,35 +41,26 @@ public class MyInfoFragment extends Fragment {
         usermail = (TextView) view.findViewById(R.id.usermail);
         phonelocation = (TextView) view.findViewById(R.id.phonelocation);
 
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            String email = user.getEmail();
-            String phone = user.getPhoneNumber();
-            userphone.setText(phone);
-            usermail.setText(email);
-        }
-
         firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
         userRef = firebaseDatabase.getReference("users");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                usrmap = (Map<String, Objects>) dataSnapshot.getValue();
-                for (String mapkey : usrmap.keySet()){
-                    System.out.println("key:"+mapkey+",value:"+usrmap.get(mapkey));
-                    username.setText(mapkey);
-                }
+                String mail = dataSnapshot.child(firebaseUser.getUid()).child("email").getValue(String.class);
+                String name = dataSnapshot.child(firebaseUser.getUid()).child("name").getValue(String.class);
+                String pnum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
 
+                usermail.setText(mail);
+                username.setText(name);
+                userphone.setText(pnum);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.w("error = ", "Failed to read value.", databaseError.toException());
+
             }
         });
-
-
         return view;
     }
 
