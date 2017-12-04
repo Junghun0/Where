@@ -72,6 +72,7 @@ public class Map2Fragment extends Fragment {
                 }
             }
         });
+
         return view;
     }
 

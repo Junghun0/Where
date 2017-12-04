@@ -12,7 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
-        android:textSize="23dp"
+        android:textSize="24dp"
         android:textColor="@color/colorAccent"
         android:text="암호찾기" />
 

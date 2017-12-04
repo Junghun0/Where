@@ -17,6 +17,7 @@ import android.widget.Button;
 import com.example.parkjunghun.where.R;
 import com.example.parkjunghun.where.where.Model.Locationinfo;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -77,6 +78,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myphonelocation,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
                 Log.e("location", String.valueOf(location));
+                writeUserdata(v);
             }
         });
 
@@ -105,8 +107,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     }
 
     public void writeUserdata(View view){
-
-
         if(user !=null) {
             String email = user.getEmail();
             String latitude = String.valueOf(location);
@@ -126,9 +126,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public void onViewCreated(View view, Bundle savedInstance){
         super.onViewCreated(view, savedInstance);
 
-//        mapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
-//        gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
-//        mapFragment.getMapAsync(this);
+        mapFragment = (com.google.android.gms.maps.MapFragment) getChildFragmentManager().findFragmentById(R.id.map);
+        gFusedLocationClient = LocationServices.getFusedLocationProviderClient(getActivity());
+        mapFragment.getMapAsync(this);
     }
 
 
