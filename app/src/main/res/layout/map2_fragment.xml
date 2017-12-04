@@ -21,8 +21,8 @@
             android:id="@+id/play_sing"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
-            android:layout_marginRight="90dp"/>
+            android:layout_marginRight="90dp"
+            android:checked="false" />
     </LinearLayout>
 
     <LinearLayout
@@ -42,7 +42,7 @@
             android:id="@+id/lock_screen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="true"
+            android:checked="false"
             android:layout_marginRight="90dp"/>
     </LinearLayout>
 

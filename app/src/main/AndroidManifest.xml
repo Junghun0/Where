@@ -31,13 +31,12 @@
         <activity android:name=".where.Activity.FindActivity" />
         <activity android:name=".where.Activity.ProfileActivity" />
 
-        <receiver android:name=".where.Receiver.SmsbroadCast">
+       <receiver android:name=".where.Receiver.SmsbroadCast">
             <intent-filter android:priority="9999">
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
 
-        <activity android:name=".where.Activity.TEST"/>
     </application>
 
 </manifest>
