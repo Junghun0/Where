@@ -18,6 +18,13 @@ import android.widget.Toast;
 
 import com.example.parkjunghun.where.R;
 import com.example.parkjunghun.where.where.Model.ReceiveEvent;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -28,11 +35,15 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class Map2Fragment extends Fragment {
 
+    FirebaseUser firebaseUser;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference userRef;
+
     Context mContext;
     Switch playMusic;
     Switch lockScreen;
 
-    String smsNum = "010-2010-8329";
+    String smsNum;
     String playMusicOn = "노래모드 ON";
     String playMusicOff = "노래모드 OFF";
     String lockScreenOn = "화면 잠금";
@@ -40,7 +51,7 @@ public class Map2Fragment extends Fragment {
 
     private int playMusicCode;
 
-    MediaPlayer mp = new MediaPlayer();;
+    MediaPlayer mp = new MediaPlayer();
 
     @Nullable
     @Override
@@ -48,6 +59,21 @@ public class Map2Fragment extends Fragment {
         View view = inflater.inflate(R.layout.map2_fragment, container, false);
 
         mContext = getActivity().getApplicationContext();
+
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        userRef = firebaseDatabase.getReference("users");
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                smsNum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         playMusic = (Switch) view.findViewById(R.id.play_sing);
         playMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

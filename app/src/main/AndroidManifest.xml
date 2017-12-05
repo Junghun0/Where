@@ -20,13 +20,14 @@
             android:value="AIzaSyAUa6P6e0tGSh4FCLk78P0DUGrmoUp10so" />
 
         <activity android:name=".where.Activity.RegisterActivity" />
-        <activity android:name=".where.Activity.LoginActivity"></activity>
-        <activity android:name=".where.Activity.MainActivity">
+        <activity android:name=".where.Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".where.Activity.MainActivity">
         </activity>
         <activity android:name=".where.Activity.FindActivity" />
         <activity android:name=".where.Activity.ProfileActivity" />
