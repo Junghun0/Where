@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "266171975175-lk79cfne34kjv1fasma2ref6tru7bmmh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.parkjunghun.where",
+            "certificate_hash": "96eed733f97234d482cd7bb229d5b1d21a43c68c"
+          }
+        },
+        {
           "client_id": "266171975175-sedbuh2r5se7csam3tf9obfpm6smtjo6.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

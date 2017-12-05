@@ -39,7 +39,7 @@
         android:text="회원탈퇴 합니다."
         android:id="@+id/textviewDelete"
         android:layout_gravity="center_horizontal"
-        android:textColor="@color/colorAccent"
+        android:textColor="#5dada5"
         android:layout_margin="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />

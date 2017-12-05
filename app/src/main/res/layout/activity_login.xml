@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:textSize="23dp"
-        android:textColor="@color/colorAccent"
+        android:textColor="#5dada5"
         android:text="로그인" />
 
     <EditText
@@ -56,7 +56,7 @@
 
         <TextView
             android:text="패스워드가 기억나지 않습니까?"
-            android:textColor="@color/colorAccent"
+            android:textColor="#5dada5"
             android:layout_marginLeft="16dp"
             android:id="@+id/textViewFindpassword"
             android:layout_width="wrap_content"
