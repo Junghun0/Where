@@ -78,7 +78,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myphonelocation,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
                 Log.e("location", String.valueOf(location));
-                writeUserdata(v);
+               // writeUserdata(v);
             }
         });
 
@@ -106,7 +106,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
-    public void writeUserdata(View view){
+   /* public void writeUserdata(View view){
         if(user !=null) {
             String email = user.getEmail();
             String latitude = String.valueOf(location);
@@ -119,7 +119,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         }
 
-    }
+    }*/
 
 
     @Override

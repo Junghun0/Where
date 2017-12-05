@@ -33,7 +33,7 @@
         <activity android:name=".where.Activity.ProfileActivity" />
 
        <receiver android:name=".where.Receiver.SmsbroadCast">
-            <intent-filter android:priority="9999">
+            <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>

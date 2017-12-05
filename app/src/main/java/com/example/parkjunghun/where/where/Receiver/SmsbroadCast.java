@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
+import android.util.Log;
 
 import com.example.parkjunghun.where.where.Fragment.Map2Fragment;
 import com.example.parkjunghun.where.where.Model.ReceiveEvent;
@@ -18,7 +19,7 @@ public class SmsbroadCast extends BroadcastReceiver {
     @Override
     public void onReceive(Context mContext, Intent intent) {
         String action = intent.getAction();
-
+        Log.d("receive", "onreceive1");
         if ("android.provider.Telephony.SMS_RECEIVED".equals(action)) {
 
             Map2Fragment map2Fragment = new Map2Fragment();
@@ -34,6 +35,7 @@ public class SmsbroadCast extends BroadcastReceiver {
 
             if(Message.equals("노래모드 ON")){
                 playMusicCode =1;
+                Log.d("receive", "onreceive2");
                 map2Fragment.setPlayMusic(playMusicCode);
                 EventBus.getDefault().post(new ReceiveEvent(playMusicCode));
             } else{
