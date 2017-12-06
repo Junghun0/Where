@@ -92,7 +92,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 mCompatBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
                 mCompatBuilder.setAutoCancel(true);
                 nm.notify(0,mCompatBuilder.build());
-
                 WriteData();
             }
         });
