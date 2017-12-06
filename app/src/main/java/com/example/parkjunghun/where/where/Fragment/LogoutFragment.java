@@ -19,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
  */
 
 public class LogoutFragment extends Fragment {
-    FirebaseAuth firebaseAuth;
+    private  FirebaseAuth firebaseAuth;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

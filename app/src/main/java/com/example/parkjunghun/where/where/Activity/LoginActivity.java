@@ -21,24 +21,21 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    EditText editTextEmail;
-    EditText editTextPassword;
-    Button buttonSignin;
-    TextView textviewSingin;
-    TextView textviewMessage;
-    TextView textviewFindPassword;
-    ProgressDialog progressDialog;
+    private EditText editTextEmail;
+    private  EditText editTextPassword;
+    private  Button buttonSignin;
+    private  TextView textviewSingin;
+    private  TextView textviewMessage;
+    private  TextView textviewFindPassword;
+    private  ProgressDialog progressDialog;
     //define firebase object
-    FirebaseAuth firebaseAuth;
+    private  FirebaseAuth firebaseAuth;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
         setContentView(R.layout.activity_login);
 
         //initializig firebase auth object

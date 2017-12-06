@@ -25,22 +25,22 @@ import com.google.firebase.database.FirebaseDatabase;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     //define view objects
-    EditText editTextEmail;
-    EditText editTextPassword;
-    EditText editTextPhone;
-    EditText editTextName;
-    Button buttonSignup;
-    TextView textviewSingin;
-    TextView textviewMessage;
-    ProgressDialog progressDialog;
+    private  EditText editTextEmail;
+    private  EditText editTextPassword;
+    private  EditText editTextPhone;
+    private  EditText editTextName;
+    private  Button buttonSignup;
+    private  TextView textviewSingin;
+    private  TextView textviewMessage;
+    private  ProgressDialog progressDialog;
     //define firebase object
-    FirebaseAuth firebaseAuth;
+    private  FirebaseAuth firebaseAuth;
 
 
-    FirebaseUser firebaseUser;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference userRef;
-    String pass;
+    private FirebaseUser firebaseUser;
+    private  FirebaseDatabase firebaseDatabase;
+    private  DatabaseReference userRef;
+    private  String pass;
 
     long pressedTime = System.currentTimeMillis();
 

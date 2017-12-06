@@ -22,9 +22,7 @@ public class FindActivity extends AppCompatActivity implements View.OnClickListe
     //define view objects
     private EditText editTextUserEmail;
     private Button buttonFind;
-    private TextView textviewMessage;
     private ProgressDialog progressDialog;
-    //define firebase object
     private FirebaseAuth firebaseAuth;
 
 

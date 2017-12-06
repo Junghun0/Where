@@ -19,7 +19,6 @@ public class SmsbroadCast extends BroadcastReceiver {
     @Override
     public void onReceive(Context mContext, Intent intent) {
         String action = intent.getAction();
-        Log.d("receive", "onreceive1");
         if ("android.provider.Telephony.SMS_RECEIVED".equals(action)) {
 
             Map2Fragment map2Fragment = new Map2Fragment();

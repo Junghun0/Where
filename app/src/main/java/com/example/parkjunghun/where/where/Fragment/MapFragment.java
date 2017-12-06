@@ -106,14 +106,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
-        lock = (Button) view.findViewById(R.id.lock);
-        lock.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LockActivity.class);
-                startActivity(intent);
-            }
-        });
         return view;
     }
 
