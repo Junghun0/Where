@@ -8,6 +8,7 @@
     tools:context="com.example.parkjunghun.where.where.Activity.LockActivity">
 
     <TextView
+        android:id="@+id/lock"
         android:layout_gravity="center_horizontal"
         android:text="lock lock lock lock"
         android:layout_width="wrap_content"
