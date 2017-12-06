@@ -35,23 +35,23 @@ import org.greenrobot.eventbus.Subscribe;
 
 public class Map2Fragment extends Fragment {
 
-    FirebaseUser firebaseUser;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference userRef;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userRef;
 
-    Context mContext;
-    Switch playMusic;
-    Switch lockScreen;
+    private Context mContext;
+    private Switch playMusic;
+    private Switch lockScreen;
 
-    String smsNum;
-    String playMusicOn = "노래모드 ON";
-    String playMusicOff = "노래모드 OFF";
-    String lockScreenOn = "화면 잠금";
-    String lockScreenOff = "화면 잠금 해제";
+    private static String smsNum;
+    private String playMusicOn = "노래모드 ON";
+    private String playMusicOff = "노래모드 OFF";
+    private String lockScreenOn = "화면 잠금";
+    private String lockScreenOff = "화면 잠금 해제";
 
     private int playMusicCode;
 
-    MediaPlayer mp = new MediaPlayer();
+    private MediaPlayer mp = new MediaPlayer();
 
     @Nullable
     @Override
@@ -63,31 +63,33 @@ public class Map2Fragment extends Fragment {
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        playMusic = (Switch) view.findViewById(R.id.play_sing);
+        lockScreen = (Switch) view.findViewById(R.id.lock_screen);
+
         userRef = firebaseDatabase.getReference("users");
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 smsNum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
+
+                playMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked == true) {
+                            Log.d("smsNum",smsNum+"");
+                            sendSMS(smsNum, playMusicOn);
+                        } else {
+                            Log.d("smsNum",smsNum+"");
+                            sendSMS(smsNum, playMusicOff);
+                        }
+                    }
+                });
+
             }
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
-        playMusic = (Switch) view.findViewById(R.id.play_sing);
-        playMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked == true) {
-                    sendSMS(smsNum, playMusicOn);
-                } else {
-                    sendSMS(smsNum, playMusicOff);
-                }
-            }
-        });
-
-        lockScreen = (Switch) view.findViewById(R.id.lock_screen);
         lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -120,11 +122,13 @@ public class Map2Fragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
+/*
     @Override
     public void onDestroy(){
         super.onDestroy();
         EventBus.getDefault().unregister(this);
     }
+*/
 
     public void sendSMS(String smsNumber, String smsText) {
         PendingIntent sentIntent = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_SENT_ACTION"), 0);
@@ -156,7 +160,6 @@ public class Map2Fragment extends Fragment {
             mp.stop();
             Toast.makeText(getActivity().getApplicationContext(), "노래정지모드 실행", Toast.LENGTH_SHORT).show();
         }
-
     }
 
 }
