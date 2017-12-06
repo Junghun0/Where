@@ -15,33 +15,32 @@ import com.example.parkjunghun.where.where.Fragment.MapFragment;
 
 public class LockActivity extends AppCompatActivity implements View.OnClickListener{
 
-    Button unlock = (Button) findViewById(R.id.unlock);
+    Button unlock;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+       getWindow().addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED | WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         setContentView(R.layout.activity_lock);
+
+        unlock = (Button) findViewById(R.id.unlock);
+
+        unlock.setOnClickListener(this);
+
 
     }
 
 
-    @Override
-    public void onClick(View v) {
-        if(v == unlock){
 
-            KeyguardManager km = (KeyguardManager)getSystemService(KEYGUARD_SERVICE);
+    public void onClick(View view) {
 
-            KeyguardManager.KeyguardLock keyLock = km.newKeyguardLock(KEYGUARD_SERVICE);
-
-            keyLock.disableKeyguard();
+        if(view == unlock){
+           // getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
             finish();
-            startActivity(new Intent(this, LoginActivity.class));
-
-
+            startActivity(new Intent(this, MainActivity.class));
         }
     }
 
