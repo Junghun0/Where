@@ -17,6 +17,8 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.parkjunghun.where.R;
+import com.example.parkjunghun.where.where.Activity.LockActivity;
+import com.example.parkjunghun.where.where.Activity.MainActivity;
 import com.example.parkjunghun.where.where.Model.ReceiveEvent;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -49,7 +51,7 @@ public class Map2Fragment extends Fragment {
     private String lockScreenOn = "화면 잠금";
     private String lockScreenOff = "화면 잠금 해제";
 
-    private int playMusicCode;
+    private int code;
 
     private MediaPlayer mp = new MediaPlayer();
 
@@ -90,15 +92,25 @@ public class Map2Fragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {}
         });
 
-        lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        userRef.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked == true) {
-                    sendSMS(smsNum, lockScreenOn);
-                } else {
-                    sendSMS(smsNum, lockScreenOff);
-                }
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                smsNum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
+
+                lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (isChecked == true) {
+                            sendSMS(smsNum, lockScreenOn);
+                        } else {
+                            sendSMS(smsNum, lockScreenOff);
+                        }
+                    }
+                });
+
             }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
         });
 
         return view;
@@ -122,14 +134,6 @@ public class Map2Fragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
-/*
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
-    }
-*/
-
     public void sendSMS(String smsNumber, String smsText) {
         PendingIntent sentIntent = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_SENT_ACTION"), 0);
         PendingIntent deliveredIntent = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_DELIVERED_ACTION"), 0);
@@ -139,27 +143,30 @@ public class Map2Fragment extends Fragment {
     }
 
     public void setPlayMusic(int playMusicCode) {
-        this.playMusicCode = playMusicCode;
+        this.code = playMusicCode;
     }
 
     public int getPlayMusicCode() {
-        return playMusicCode;
+        return code;
     }
 
     @Subscribe
     public void playMusic(ReceiveEvent event){
-        playMusicCode = event.getPlayMusic();
-        Log.d("test", playMusicCode + "");
+        code = event.getCode();
+        Log.d("test", code + "");
 
-        if (playMusicCode == 1) {
+        if (code == 1) {
             mp = MediaPlayer.create(getActivity(), R.raw.test);
             mp.setLooping(true);
             mp.start();
             Toast.makeText(getActivity().getApplicationContext(), "노래모드 실행", Toast.LENGTH_SHORT).show();
-        }else{
+        } else if(code == 0){
             mp.stop();
             Toast.makeText(getActivity().getApplicationContext(), "노래정지모드 실행", Toast.LENGTH_SHORT).show();
-        }
+        } else if(code == 2){
+            Intent intent = new Intent(getActivity(), LockActivity.class);
+            startActivity(intent);
+        } else{}
     }
 
 }

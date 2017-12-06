@@ -52,11 +52,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private Button navigation;
     private LatLng myphonelocation;
 
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference LocationRef;
-    FirebaseUser user;
-    FirebaseAuth auth;
-    Locationinfo locationinfo;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference LocationRef;
+    private FirebaseUser user;
+    private FirebaseAuth auth;
 
     @Nullable
     @Override
@@ -106,22 +105,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
-   /* public void writeUserdata(View view){
-        if(user !=null) {
-            String email = user.getEmail();
-            String latitude = String.valueOf(location);
-            String longitude = String.valueOf(lastLocation.getLongitude());
-
-            locationinfo = new Locationinfo(latitude,longitude,email);
-            LocationRef = firebaseDatabase.getReference("Location");
-
-            LocationRef.child("CurLocation").setValue(locationinfo);
-
-        }
-
-    }*/
-
-
     @Override
     public void onViewCreated(View view, Bundle savedInstance){
         super.onViewCreated(view, savedInstance);
@@ -153,8 +136,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                 }
             });
-        } else {
-            EasyPermissions.requestPermissions(this, "This app needs access to your location to know where you are.", RC_LOCATION, perms);
-        }
+        } else { }
     }
 }

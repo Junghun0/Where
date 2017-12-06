@@ -9,8 +9,7 @@ public class Locationinfo {
     private String longitude;
     private String email;
 
-    public Locationinfo(){
-    }
+    public Locationinfo(){}
 
     public Locationinfo(String latitude, String longitude, String email) {
         this.latitude = latitude;

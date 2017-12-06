@@ -5,13 +5,13 @@ package com.example.parkjunghun.where.where.Model;
  */
 
 public class ReceiveEvent {
-    int playMusicCode;
+    private int code;
 
-    public ReceiveEvent(int playMusicCode) {
-        this.playMusicCode = playMusicCode;
+    public ReceiveEvent(int code) {
+        this.code = code;
     }
 
-    public int getPlayMusic() {
-        return playMusicCode;
+    public int getCode() {
+        return code;
     }
 }

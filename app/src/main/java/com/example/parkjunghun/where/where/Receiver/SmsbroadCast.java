@@ -14,7 +14,7 @@ import org.greenrobot.eventbus.EventBus;
 
 
 public class SmsbroadCast extends BroadcastReceiver {
-    private int playMusicCode;
+    private int code;
 
     @Override
     public void onReceive(Context mContext, Intent intent) {
@@ -34,14 +34,21 @@ public class SmsbroadCast extends BroadcastReceiver {
             String Message = smsMessage[0].getMessageBody().toString();
 
             if(Message.equals("노래모드 ON")){
-                playMusicCode =1;
-                Log.d("receive", "onreceive2");
-                map2Fragment.setPlayMusic(playMusicCode);
-                EventBus.getDefault().post(new ReceiveEvent(playMusicCode));
+                code =1;
+                map2Fragment.setPlayMusic(code);
+                EventBus.getDefault().post(new ReceiveEvent(code));
+            } else if(Message.equals("노래모드 OFF")){
+                code =0;
+                map2Fragment.setPlayMusic(code);
+                EventBus.getDefault().post(new ReceiveEvent(code));
+            } else if(Message.equals("화면 잠금")){
+                code =2;
+                map2Fragment.setPlayMusic(code);
+                EventBus.getDefault().post(new ReceiveEvent(code));
             } else{
-                playMusicCode =0;
-                map2Fragment.setPlayMusic(playMusicCode);
-                EventBus.getDefault().post(new ReceiveEvent(playMusicCode));
+                code =3;
+                map2Fragment.setPlayMusic(code);
+                EventBus.getDefault().post(new ReceiveEvent(code));
             }
 
         }

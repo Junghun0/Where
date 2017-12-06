@@ -23,14 +23,14 @@ import com.google.firebase.database.ValueEventListener;
  */
 
 public class MyInfoFragment extends Fragment {
-    TextView username;
-    TextView userphone;
-    TextView usermail;
-    TextView phonelocation;
+    private TextView username;
+    private TextView userphone;
+    private TextView usermail;
+    private TextView phonelocation;
 
-    FirebaseUser firebaseUser;
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference userRef;
+    private FirebaseUser firebaseUser;
+    private FirebaseDatabase firebaseDatabase;
+    private DatabaseReference userRef;
 
     @Nullable
     @Override

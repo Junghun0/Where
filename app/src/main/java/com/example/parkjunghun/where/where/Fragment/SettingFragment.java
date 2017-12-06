@@ -23,10 +23,10 @@ import butterknife.ButterKnife;
  */
 
 public class SettingFragment extends Fragment {
-    String gpsEnabled;
+    private String gpsEnabled;
 
     @BindView(R.id.gps_switch)
-    Switch aSwitch;
+    private Switch aSwitch;
 
     @Nullable
     @Override
