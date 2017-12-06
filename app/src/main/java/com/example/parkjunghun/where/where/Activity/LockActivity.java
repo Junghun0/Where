@@ -37,7 +37,6 @@ public class LockActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
 
         if(view == unlock){
-           // getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON | WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
             finish();
             startActivity(new Intent(this, MainActivity.class));
