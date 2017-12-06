@@ -7,7 +7,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -81,7 +80,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         progressDialog.dismiss();
                         if (task.isSuccessful()) {
-                            finish();
+                            //finish();
                             startActivity(new Intent(getApplicationContext(), MainActivity.class));
                         } else {
                             Toast.makeText(getApplicationContext(), "로그인 실패!", Toast.LENGTH_LONG).show();
@@ -97,11 +96,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userLogin();
         }
         if (view == textviewSingin) {
-            finish();
+            //finish();
             startActivity(new Intent(this, RegisterActivity.class));
         }
         if (view == textviewFindPassword) {
-            finish();
+            //finish();
             startActivity(new Intent(this, FindActivity.class));
         }
     }

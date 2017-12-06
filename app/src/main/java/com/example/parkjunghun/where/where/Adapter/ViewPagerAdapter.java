@@ -5,7 +5,6 @@ import android.app.FragmentManager;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v13.app.FragmentStatePagerAdapter;
 import android.view.MenuItem;
-import android.view.ViewGroup;
 
 import com.example.parkjunghun.where.where.Fragment.Map2Fragment;
 import com.example.parkjunghun.where.where.Fragment.MapFragment;
@@ -32,17 +31,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter{
         }
         return null;
     }
-
     @Override
     public int getCount() {
         return 2;
     }
-
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        if(position !=0)
-        super.destroyItem(container, position, object);
-    }
-
 
 }

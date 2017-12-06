@@ -19,19 +19,6 @@ import com.example.parkjunghun.where.where.Fragment.LogoutFragment;
 import com.example.parkjunghun.where.where.Fragment.MyInfoFragment;
 import com.example.parkjunghun.where.where.Fragment.SettingFragment;
 public class MainActivity extends AppCompatActivity {
-
-    private BottomNavigationView.OnNavigationItemSelectedListener onNavigationItemselectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            if (item.getItemId() == R.id.mymap) {
-                viewPager.setCurrentItem(0);
-            }
-            if (item.getItemId() == R.id.mymap2) {
-                viewPager.setCurrentItem(1);
-            }
-            return true;
-        }
-    };
     private ViewPager viewPager;
     private DrawerLayout drawerLayout;
 
@@ -46,8 +33,21 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         BottomNavigationView bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
-        bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemselectedListener);
-
+        //bottomNavigationView.setOnNavigationItemSelectedListener(onNavigationItemselectedListener);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.mymap) {
+                    viewPager.setCurrentItem(0);
+                    return true;
+                }
+                if (item.getItemId() == R.id.mymap2) {
+                    viewPager.setCurrentItem(1);
+                    return true;
+                }
+                return false;
+            }
+        });
 
         drawerLayout = (DrawerLayout) findViewById(R.id.draw_layout);
         ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, 0, 0);
@@ -58,25 +58,24 @@ public class MainActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
                 if (item.getItemId() == R.id.myinfo) {
-                    getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new MyInfoFragment()).commit();
+                    getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new MyInfoFragment()).commit();
                 }
 
                 if (item.getItemId() == R.id.first) {
-                    getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new SettingFragment()).commit();
+                    getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new SettingFragment()).commit();
                 }
 
                 if (item.getItemId() == R.id.second) {
-                    getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new SettingFragment()).commit();
+                    getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new SettingFragment()).commit();
 
                 }
                 if (item.getItemId() == R.id.howuse) {
-                    getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new InfoFragment()).commit();
+                    getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new InfoFragment()).commit();
                 }
 
                 if (item.getItemId() == R.id.logout) {
-                    getFragmentManager().beginTransaction().replace(R.id.main_framelayout, new LogoutFragment()).commit();
+                    getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new LogoutFragment()).commit();
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;

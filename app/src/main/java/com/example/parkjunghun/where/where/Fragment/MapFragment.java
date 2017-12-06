@@ -2,12 +2,15 @@ package com.example.parkjunghun.where.where.Fragment;
 
 import android.Manifest;
 import android.app.Fragment;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +18,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.parkjunghun.where.R;
-import com.example.parkjunghun.where.where.Activity.LockActivity;
 import com.example.parkjunghun.where.where.Model.Locationinfo;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -64,6 +66,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.map_fragment, null);
+        final NotificationManager nm = (NotificationManager)getContext().getSystemService(getContext().NOTIFICATION_SERVICE);
         myphonelocation = new LatLng(37.5882784 ,127.0036808);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -80,7 +83,17 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myphonelocation,14));
                 gMap.animateCamera(CameraUpdateFactory.zoomTo(14),2000,null);
                 Log.e("location", String.valueOf(location));
-               // writeUserdata(v);
+
+                final NotificationCompat.Builder mCompatBuilder = new NotificationCompat.Builder(getContext());
+                mCompatBuilder.setSmallIcon(R.drawable.noti_icon);
+                mCompatBuilder.setContentTitle("Where?");
+                mCompatBuilder.setContentText("내폰위치 : "+"("+lastLocation.getLatitude()+","+lastLocation.getLongitude()+")");
+                mCompatBuilder.setWhen(System.currentTimeMillis());
+                mCompatBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
+                mCompatBuilder.setAutoCancel(true);
+                nm.notify(0,mCompatBuilder.build());
+
+                WriteData();
             }
         });
 
@@ -105,9 +118,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 startActivity(intent);
             }
         });
-
         return view;
     }
+   public void WriteData(){
+       Locationinfo locationinfo = new Locationinfo();
+       locationinfo.setLongitude(String.valueOf(lastLocation.getLatitude()));
+       locationinfo.setLatitude(String.valueOf(lastLocation.getLongitude()));
+       locationinfo.setEmail(user.getEmail());
+
+       FirebaseDatabase.getInstance().getReference().child("Location").child(user.getUid()).setValue(locationinfo);
+   }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstance){

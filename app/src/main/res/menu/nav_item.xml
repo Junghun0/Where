@@ -18,7 +18,7 @@
             <item
                 android:id="@+id/first"
                 android:icon="@drawable/setting"
-                android:title="알림 ON/OFF" />
+                android:title="알림보내기" />
             <item
                 android:id="@+id/second"
                 android:icon="@drawable/setting2"
