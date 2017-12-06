@@ -7,7 +7,6 @@
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
 
     <application
         android:allowBackup="true"
@@ -24,19 +23,22 @@
         <activity android:name=".where.Activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".where.Activity.MainActivity"/>
-        <activity android:name=".where.Activity.FindActivity" />
-        <activity android:name=".where.Activity.ProfileActivity" />
         <activity android:name=".where.Activity.LockActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <!--<category android:name="android.intent.category.HOME" />-->
+
+                <category android:name="android.intent.category.HOME" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".where.Activity.FindActivity" />
+        <activity android:name=".where.Activity.ProfileActivity" />
+
        <receiver android:name=".where.Receiver.SmsbroadCast">
             <intent-filter>
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

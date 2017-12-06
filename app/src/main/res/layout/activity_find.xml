@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
         android:textSize="24dp"
-        android:textColor="@color/colorAccent"
-        android:text="암호찾기" />
+        android:textColor="#5dada5"
+        android:text="패스워드찾기" />
 
     <TextView
         android:text="등록한 Email을 입력해 주세요"

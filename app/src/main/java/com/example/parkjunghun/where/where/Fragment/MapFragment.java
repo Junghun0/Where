@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.parkjunghun.where.R;
+import com.example.parkjunghun.where.where.Activity.LockActivity;
 import com.example.parkjunghun.where.where.Model.Locationinfo;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -51,6 +52,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private android.widget.Button currentLocation;
     private Button navigation;
     private LatLng myphonelocation;
+    private Button lock;
 
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference LocationRef;
@@ -60,6 +62,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         final View view = inflater.inflate(R.layout.map_fragment, null);
         myphonelocation = new LatLng(37.5882784 ,127.0036808);
 
@@ -99,6 +102,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
                 Intent intent = new Intent(Intent.ACTION_VIEW);
                 intent.setData(Uri.parse("https://www.google.co.kr/maps/dir/"+lastLocation.getLatitude()+","+lastLocation.getLongitude()+"/"+37.5882784+","+127.0036808));
+                startActivity(intent);
+            }
+        });
+
+        lock = (Button) view.findViewById(R.id.lock);
+        lock.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), LockActivity.class);
                 startActivity(intent);
             }
         });
