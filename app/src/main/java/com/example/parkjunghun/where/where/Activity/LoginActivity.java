@@ -21,16 +21,15 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editTextEmail;
-    private  EditText editTextPassword;
-    private  Button buttonSignin;
-    private  TextView textviewSingin;
-    private  TextView textviewMessage;
-    private  TextView textviewFindPassword;
-    private  ProgressDialog progressDialog;
+    private EditText editTextPassword;
+    private Button buttonSignin;
+    private TextView textviewSingin;
+    private TextView textviewMessage;
+    private TextView textviewFindPassword;
+    private ProgressDialog progressDialog;
     //define firebase object
-    private  FirebaseAuth firebaseAuth;
-
-
+    private FirebaseAuth firebaseAuth;
+    String phonenum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,8 +67,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             Toast.makeText(this, "password를 입력해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
-
-
         progressDialog.setMessage("로그인중입니다. 잠시 기다려 주세요...");
         progressDialog.show();
 
@@ -89,7 +86,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     }
                 });
     }
-
     @Override
     public void onClick(View view) {
         if (view == buttonSignin) {

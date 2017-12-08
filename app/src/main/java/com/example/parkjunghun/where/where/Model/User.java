@@ -10,16 +10,36 @@ public class User {
     private String phonenum;
     private String name;
     private String uid;
+    private String latitude;
+    private String longitude;
 
     public User(){
     }
 
-    public User(String email,String password, String phonenum,String name,String uid){
+    public User(String email,String password, String phonenum,String name,String uid,String latitude,String longitude){
         this.email  = email;
         this.password = password;
         this.phonenum = phonenum;
         this.name = name;
         this.uid = uid;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public String getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
     public String getUid() { return uid; }

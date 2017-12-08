@@ -41,6 +41,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private  FirebaseDatabase firebaseDatabase;
     private  DatabaseReference userRef;
     private  String pass;
+    String phonenum;
 
     long pressedTime = System.currentTimeMillis();
 
@@ -109,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             user.setEmail(editTextEmail.getText().toString());
                             user.setPhonenum(editTextPhone.getText().toString());
                             user.setPassword(editTextPassword.getText().toString());
+
                             user.setUid(task.getResult().getUser().getUid());
 
                             FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid()).setValue(user);
