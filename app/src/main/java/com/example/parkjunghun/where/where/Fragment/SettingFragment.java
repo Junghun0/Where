@@ -46,9 +46,9 @@ public class SettingFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b == true) {
-                    checkGPS();
+                    checkGPS1();
                 } else {
-                    Toast.makeText(getActivity(), "off", Toast.LENGTH_SHORT).show();
+                    checkGPS2();
                 }
             }
         });
@@ -74,29 +74,36 @@ public class SettingFragment extends Fragment {
         return view;
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    private boolean checkGPS() {
-
+    private boolean checkGPS1() {
         gpsEnabled = android.provider.Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
-
         if (!(gpsEnabled.matches(".*gps.*") && gpsEnabled.matches(".*network.*"))) {
-            new AlertDialog.Builder(getActivity()).setTitle("GPS 설정").setMessage("GPS를 활성화 하시겠습니까?").setPositiveButton("GPS 켜기", new DialogInterface.OnClickListener() {
+            new AlertDialog.Builder(getActivity()).setTitle("GPS").setMessage("GPS를 활성화 하시겠습니까?").setPositiveButton("하기", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int which) {
                     Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                     startActivityForResult(intent, 0);
                 }
-            }).setNegativeButton("아니요", new DialogInterface.OnClickListener() {
+            }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-
-                }
+                public void onClick(DialogInterface dialogInterface, int i) {}
             }).create().show();
+        }
+        return true;
+    }
 
+    private boolean checkGPS2(){
+        gpsEnabled = android.provider.Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
+        if ((gpsEnabled.matches(".*gps.*") && gpsEnabled.matches(".*network.*"))) {
+            new AlertDialog.Builder(getActivity()).setTitle("GPS").setMessage("GPS를 활성화하지 않겠습니까?").setPositiveButton("하기", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int which) {
+                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(intent, 0);
+                }
+            }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {}
+            }).create().show();
         }
         return true;
     }
