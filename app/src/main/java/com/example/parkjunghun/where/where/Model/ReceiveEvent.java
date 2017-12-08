@@ -6,12 +6,11 @@ package com.example.parkjunghun.where.where.Model;
 
 public class ReceiveEvent {
     private int code;
-
     public ReceiveEvent(int code) {
         this.code = code;
     }
-
     public int getCode() {
         return code;
     }
+
 }

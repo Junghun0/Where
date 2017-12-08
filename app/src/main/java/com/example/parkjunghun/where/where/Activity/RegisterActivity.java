@@ -50,7 +50,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
 
-        //initializig firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         userRef = firebaseDatabase.getReference("users");
@@ -65,22 +64,18 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         buttonSignup = (Button) findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
 
-        //button click event
         buttonSignup.setOnClickListener(this);
         textviewSingin.setOnClickListener(this);
 
     }
 
-    //Firebse creating a new user
     private void registerUser() {
-        //initializing views
 
-        //사용자가 입력하는 email, password를 가져온다.
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
         String phone = editTextPhone.getText().toString().trim();
         String name = editTextName.getText().toString().trim();
-        //email과 password가 비었는지 아닌지를 체크 한다.
+
         if (TextUtils.isEmpty(email)) {
             Toast.makeText(this, "Email을 입력해 주세요.", Toast.LENGTH_SHORT).show();
         }
@@ -94,12 +89,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Toast.makeText(this, "Name을 입력해 주세요.", Toast.LENGTH_SHORT).show();
         }
 
-
-        //email과 password가 제대로 입력되어 있다면 계속 진행된다.
         progressDialog.setMessage("등록중입니다. 기다려 주세요...");
         progressDialog.show();
 
-        //creating a new user
         firebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -117,7 +109,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             finish();
                             startActivity(new Intent(getApplicationContext(), ProfileActivity.class));
                         } else {
-                            //에러발생시
+
                             textviewMessage.setText("에러유형\n - 이미 등록된 이메일  \n -암호 최소 6자리 이상 \n - 서버에러");
                             Toast.makeText(RegisterActivity.this, "등록 에러!", Toast.LENGTH_SHORT).show();
                         }
@@ -127,16 +119,13 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    //button click event
     @Override
     public void onClick(View view) {
         if (view == buttonSignup) {
-            //TODO
             registerUser();
         }
 
         if (view == textviewSingin) {
-            //TODO
             startActivity(new Intent(this, LoginActivity.class)); //추가해 줄 로그인 액티비티
         }
     }
@@ -155,7 +144,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 pressedTime = 0;
             } else {
                 super.onBackPressed();
-                finish(); // app 종료 시키기
+                finish();
             }
         }
     }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
-import android.util.Log;
 
 import com.example.parkjunghun.where.where.Fragment.Map2Fragment;
 import com.example.parkjunghun.where.where.Model.ReceiveEvent;
@@ -32,6 +31,7 @@ public class SmsbroadCast extends BroadcastReceiver {
             }
             String Message = smsMessage[0].getMessageBody().toString();
 
+
             if(Message.equals("노래모드 ON")){
                 code =1;
                 map2Fragment.setPlayMusic(code);
@@ -44,9 +44,8 @@ public class SmsbroadCast extends BroadcastReceiver {
                 code =2;
                 map2Fragment.setPlayMusic(code);
                 EventBus.getDefault().post(new ReceiveEvent(code));
-            } else{
+            } else if(Message.equals("화면 잠금 해제")){
                 code =3;
-                map2Fragment.setPlayMusic(code);
                 EventBus.getDefault().post(new ReceiveEvent(code));
             }
 

@@ -63,11 +63,6 @@
                 android:padding="5dp"
                 android:text="길 찾기" />
 
-            <ToggleButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="위치추적"
-                android:id="@+id/map_toggle"/>
         </FrameLayout>
 
 

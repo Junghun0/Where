@@ -54,7 +54,7 @@ public class LockActivity extends AppCompatActivity{
     @Override
     public void onResume(){
         super.onResume();
-        getPlayMusicCode();
+        getUnLockCode();
     }
 
     @Override
@@ -69,7 +69,7 @@ public class LockActivity extends AppCompatActivity{
         EventBus.getDefault().unregister(this);
     }
 
-    public int getPlayMusicCode() {
+    public int getUnLockCode() {
         return code;
     }
 

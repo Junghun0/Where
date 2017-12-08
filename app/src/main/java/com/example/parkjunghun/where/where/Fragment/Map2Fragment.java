@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.example.parkjunghun.where.R;
 import com.example.parkjunghun.where.where.Activity.LockActivity;
-import com.example.parkjunghun.where.where.Activity.MainActivity;
 import com.example.parkjunghun.where.where.Model.ReceiveEvent;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -160,13 +159,14 @@ public class Map2Fragment extends Fragment {
             mp.setLooping(true);
             mp.start();
             Toast.makeText(getActivity().getApplicationContext(), "노래모드 실행", Toast.LENGTH_SHORT).show();
-        } else if(code == 0){
+        }
+        if(code == 0){
             mp.stop();
             Toast.makeText(getActivity().getApplicationContext(), "노래정지모드 실행", Toast.LENGTH_SHORT).show();
-        } else if(code == 2){
+        }
+        if(code == 2){
             Intent intent = new Intent(getActivity(), LockActivity.class);
             startActivity(intent);
-        } else{}
+        }
     }
-
 }

@@ -10,13 +10,13 @@ public class User {
     private String phonenum;
     private String name;
     private String uid;
-    private String latitude;
-    private String longitude;
+    private double latitude;
+    private double longitude;
 
     public User(){
     }
 
-    public User(String email,String password, String phonenum,String name,String uid,String latitude,String longitude){
+    public User(String email,String password, String phonenum,String name,String uid,double latitude,double longitude){
         this.email  = email;
         this.password = password;
         this.phonenum = phonenum;
@@ -26,19 +26,19 @@ public class User {
         this.longitude = longitude;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 

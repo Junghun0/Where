@@ -36,10 +36,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        //initializig firebase auth object
         firebaseAuth = FirebaseAuth.getInstance();
 
-        //initializing views
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextPassword = (EditText) findViewById(R.id.editTextPassword);
         textviewSingin = (TextView) findViewById(R.id.textViewSignin);
@@ -48,13 +46,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonSignin = (Button) findViewById(R.id.buttonSignup);
         progressDialog = new ProgressDialog(this);
 
-        //button click event
         buttonSignin.setOnClickListener(this);
         textviewSingin.setOnClickListener(this);
         textviewFindPassword.setOnClickListener(this);
     }
 
-    //firebase userLogin method
     private void userLogin() {
         String email = editTextEmail.getText().toString().trim();
         String password = editTextPassword.getText().toString().trim();
@@ -70,7 +66,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         progressDialog.setMessage("로그인중입니다. 잠시 기다려 주세요...");
         progressDialog.show();
 
-        //logging in the user
         firebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -92,11 +87,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             userLogin();
         }
         if (view == textviewSingin) {
-            //finish();
             startActivity(new Intent(this, RegisterActivity.class));
         }
         if (view == textviewFindPassword) {
-            //finish();
             startActivity(new Intent(this, FindActivity.class));
         }
     }
