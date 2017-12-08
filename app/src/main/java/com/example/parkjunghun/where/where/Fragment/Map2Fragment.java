@@ -8,6 +8,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.telephony.SmsManager;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,6 +46,7 @@ public class Map2Fragment extends Fragment {
     private Switch lockScreen;
 
     private static String smsNum;
+    private String phonenum;
     private String playMusicOn = "노래모드 ON";
     private String playMusicOff = "노래모드 OFF";
     private String lockScreenOn = "화면 잠금";
@@ -54,18 +56,21 @@ public class Map2Fragment extends Fragment {
 
     private MediaPlayer mp = new MediaPlayer();
 
+    @SuppressWarnings("MissingPermission")
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.map2_fragment, container, false);
 
         mContext = getActivity().getApplicationContext();
+        playMusic = (Switch) view.findViewById(R.id.play_sing);
+        lockScreen = (Switch) view.findViewById(R.id.lock_screen);
+
+        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getContext().TELEPHONY_SERVICE);
+        phonenum = telephonyManager.getLine1Number();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        playMusic = (Switch) view.findViewById(R.id.play_sing);
-        lockScreen = (Switch) view.findViewById(R.id.lock_screen);
 
         userRef = firebaseDatabase.getReference("users");
         userRef.addValueEventListener(new ValueEventListener() {
@@ -73,19 +78,27 @@ public class Map2Fragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 smsNum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
 
-                playMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked == true) {
-                            Log.d("smsNum",smsNum+"");
-                            sendSMS(smsNum, playMusicOn);
-                        } else {
-                            Log.d("smsNum",smsNum+"");
-                            sendSMS(smsNum, playMusicOff);
+                if(smsNum.equals(phonenum)){
+                    playMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            Toast.makeText(getActivity().getApplicationContext(),"당신의 핸드폰 입니다.",Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
-
+                    });
+                }else{
+                    playMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked == true) {
+                                Log.d("smsNum",smsNum+"");
+                                sendSMS(smsNum, playMusicOn);
+                            } else {
+                                Log.d("smsNum",smsNum+"");
+                                sendSMS(smsNum, playMusicOff);
+                            }
+                        }
+                    });
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
@@ -96,17 +109,25 @@ public class Map2Fragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 smsNum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
 
-                lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                    @Override
-                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                        if (isChecked == true) {
-                            sendSMS(smsNum, lockScreenOn);
-                        } else {
-                            sendSMS(smsNum, lockScreenOff);
+                if(smsNum.equals(phonenum)){
+                    lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            Toast.makeText(getActivity().getApplicationContext(),"당신의 핸드폰 입니다.",Toast.LENGTH_SHORT).show();
                         }
-                    }
-                });
-
+                    });
+                }else{
+                    lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            if (isChecked == true) {
+                                sendSMS(smsNum, lockScreenOn);
+                            } else {
+                                sendSMS(smsNum, lockScreenOff);
+                            }
+                        }
+                    });
+                }
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}

@@ -6,7 +6,8 @@ import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,7 +15,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -22,16 +22,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ToggleButton;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.parkjunghun.where.R;
-import com.example.parkjunghun.where.where.Model.Locationinfo;
 import com.example.parkjunghun.where.where.Model.User;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -43,6 +44,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
@@ -76,6 +81,9 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     private String phonenum;
     private User users;
 
+    EditText findEditText;
+    EditText currentEditText;
+
     @SuppressWarnings("MissingPermission")
     @Nullable
     @Override
@@ -83,6 +91,14 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
         final View view = inflater.inflate(R.layout.map_fragment, null);
         final NotificationManager nm = (NotificationManager) getContext().getSystemService(getContext().NOTIFICATION_SERVICE);
+
+        findEditText = (EditText) view.findViewById(R.id.findEditText);
+        findEditText.setFocusable(false);
+        findEditText.setClickable(false);
+
+        currentEditText = (EditText) view.findViewById(R.id.currentEditText);
+        currentEditText.setFocusable(false);
+        currentEditText.setClickable(false);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -93,7 +109,6 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String pnum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
 
-
                 TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getContext().TELEPHONY_SERVICE);
                 phonenum = telephonyManager.getLine1Number();
 
@@ -103,6 +118,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         public void onLocationChanged(Location location) {
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
+
                             float accuracy = location.getAccuracy();
                             String provider = location.getProvider();
                             Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude + "\n경도 : " + latitude + "\n고도 : " + accuracy);
@@ -111,16 +127,66 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             users.setLongitude(longitude);
                             users.setLatitude(latitude);
                             FirebaseDatabase.getInstance().getReference().child("Location").child(firebaseUser.getUid()).setValue(users);
-                        }
 
-                        public void onProviderDisabled(String provider) {
-                        }
+                            findPhone = (Button) view.findViewById(R.id.findmyphpne);
+                            findPhone.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    gMap.clear();
+                                    myPhoneLocation = new LatLng(latitude, longitude);
+                                    gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("내폰위치"));
+                                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myPhoneLocation, 14));
+                                    gMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+                                    Log.e("location", String.valueOf(myPhoneLocation));
 
-                        public void onProviderEnabled(String provider) {
-                        }
+                                    try {
+                                        Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.KOREA);
+                                        List<Address> addresses = geocoder.getFromLocation(latitude,longitude,1);
+                                        if (addresses.size() >0) {
+                                            Address address = addresses.get(0);
+                                            String text = address.getLocality() + " " + address.getThoroughfare() + " " + address.getFeatureName() + " " + address.getPostalCode();
+                                            findEditText.setText(text);
+                                        }
+                                    } catch (IOException e) {}
 
-                        public void onStatusChanged(String provider, int status, Bundle extras) {
+                                }
+                            });
+
+                            currentLocation = (Button) view.findViewById(R.id.currentlocation);
+                            currentLocation.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    gMap.clear();
+                                    rentPhoneLocation = new LatLng(latitude, longitude);
+                                    gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("내폰위치"));
+                                    gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rentPhoneLocation, 14));
+                                    gMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+
+                                    try {
+                                        Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.KOREA);
+                                        List<Address> addresses = geocoder.getFromLocation(latitude,longitude,1);
+                                        if (addresses.size() >0) {
+                                            Address address = addresses.get(0);
+                                            String text = address.getLocality() + " " + address.getThoroughfare() + " " + address.getFeatureName() + " " + address.getPostalCode();
+                                            currentEditText.setText(text);
+                                        }
+                                    } catch (IOException e) {}
+
+                                }
+                            });
+
+                            navigation = (Button) view.findViewById(R.id.navigation);
+                            navigation.setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    Toast.makeText(getActivity().getApplicationContext(),"당신의 핸드폰 입니다.",Toast.LENGTH_SHORT).show();
+                                }
+                            });
+
                         }
+                        public void onProviderDisabled(String provider) {}
+                        public void onProviderEnabled(String provider) {}
+                        public void onStatusChanged(String provider, int status, Bundle extras) {}
                     };
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, (android.location.LocationListener) mLocationListener);
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, (android.location.LocationListener) mLocationListener);
@@ -151,6 +217,16 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                     mCompatBuilder.setDefaults(Notification.DEFAULT_SOUND | Notification.DEFAULT_VIBRATE);
                                     mCompatBuilder.setAutoCancel(true);
                                     nm.notify(0, mCompatBuilder.build());
+
+                                    try {
+                                        Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.KOREA);
+                                        List<Address> addresses = geocoder.getFromLocation(latitude,longitude,1);
+                                        if (addresses.size() >0) {
+                                            Address address = addresses.get(0);
+                                            String text = address.getLocality() + " " + address.getThoroughfare() + " " + address.getFeatureName() + " " + address.getPostalCode();
+                                            findEditText.setText(text);
+                                        }
+                                    } catch (IOException e) {}
                                 }
                             });
 
@@ -160,9 +236,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 public void onClick(View v) {
                                     gMap.clear();
                                     rentPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                                    gMap.addMarker(new MarkerOptions().position(rentPhoneLocation).title("현재위치"));
+                                    gMap.addMarker(new MarkerOptions().position(rentPhoneLocation).title("현재위치").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                                     gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rentPhoneLocation, 14));
                                     gMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
+
+                                    try {
+                                        Geocoder geocoder = new Geocoder(getActivity().getApplicationContext(), Locale.KOREA);
+                                        List<Address> addresses = geocoder.getFromLocation(location.getLatitude(),location.getLongitude(),1);
+                                        if (addresses.size() >0) {
+                                            Address address = addresses.get(0);
+                                            String text = address.getLocality() + " " + address.getThoroughfare() + " " + address.getFeatureName() + " " + address.getPostalCode();
+                                            currentEditText.setText(text);
+                                        }
+                                    } catch (IOException e) {}
                                 }
                             });
 
@@ -214,7 +300,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                         location = task.getResult();
 
                         rentPhoneLocation = new LatLng(location.getLatitude(), location.getLongitude());
-                        gMap.addMarker(new MarkerOptions().position(rentPhoneLocation).title("현재위치"));
+                        gMap.addMarker(new MarkerOptions().position(rentPhoneLocation).title("현재위치").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                         gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rentPhoneLocation, 14));
                         gMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
                     }
