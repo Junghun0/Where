@@ -38,6 +38,7 @@ public class LogoutFragment extends Fragment {
                 firebaseAuth.getInstance().signOut();
                 Toast.makeText(getActivity(), "로그아웃되었습니다.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
             }
         });

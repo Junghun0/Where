@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#343446">
+    android:background="#343446"
+    android:orientation="vertical"
+    android:paddingTop="60dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="25dp"
         android:orientation="horizontal">
 
         <TextView
@@ -16,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:text="노래 설정"
-            android:textSize="20dp"/>
+            android:textSize="35dp" />
 
         <Switch
             android:id="@+id/play_sing"
@@ -29,29 +31,32 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
-        android:orientation="horizontal">
+        android:layout_marginTop="25dp"
+        android:orientation="horizontal"
+        android:paddingTop="25dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:text="화면 잠금"
-            android:textSize="20dp"/>
+            android:textSize="35dp" />
 
         <Switch
             android:id="@+id/lock_screen"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:layout_marginRight="90dp"/>
+            android:layout_marginRight="90dp"
+            android:checked="false" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="25dp"
+        android:paddingTop="25dp"
         android:orientation="horizontal">
 
         <TextView
@@ -59,21 +64,23 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:text="GPS 설정"
-            android:textSize="20dp"/>
+            android:textSize="35dp" />
+
         <Switch
             android:id="@+id/gps_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:layout_marginRight="90dp"/>
+            android:layout_marginRight="90dp"
+            android:checked="false" />
     </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
         android:layout_marginBottom="10dp"
+        android:layout_marginTop="25dp"
+        android:paddingTop="25dp"
         android:orientation="horizontal">
 
         <TextView
@@ -81,13 +88,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
             android:text="알림보내기"
-            android:textSize="20dp"/>
+            android:textSize="35dp" />
+
         <Switch
             android:id="@+id/noti_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:checked="false"
-            android:layout_marginRight="90dp"/>
+            android:layout_marginRight="90dp"
+            android:checked="false" />
     </LinearLayout>
 
 </LinearLayout>
