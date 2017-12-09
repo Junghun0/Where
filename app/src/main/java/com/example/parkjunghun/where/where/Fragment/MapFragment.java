@@ -52,6 +52,7 @@ import java.util.Locale;
 import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 
+
 /**
  * Created by parkjunghun on 2017. 11. 2..
  */
@@ -59,10 +60,10 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap gMap;
-    protected Location location;
     private LatLng myPhoneLocation;
     private LatLng rentPhoneLocation;
     private com.google.android.gms.maps.MapFragment mapFragment;
+    private Location location;
 
     private FusedLocationProviderClient gFusedLocationClient;
     private static final int RC_LOCATION = 1;
@@ -274,6 +275,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
+
     @Override
     public void onViewCreated(View view, Bundle savedInstance) {
         super.onViewCreated(view, savedInstance);
@@ -306,6 +308,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     }
                 }
             });
-        } else {}
+        } else {
+        }
     }
 }

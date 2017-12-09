@@ -13,18 +13,18 @@
         android:title="사용법"></item>
 
 
-    <item android:title="설정">
-        <menu>
-            <item
-                android:id="@+id/first"
-                android:icon="@drawable/setting"
-                android:title="알림보내기" />
-            <item
-                android:id="@+id/second"
-                android:icon="@drawable/setting2"
-                android:title="GPS" />
-        </menu>
-    </item>
+    <!--<item android:title="설정">-->
+        <!--<menu>-->
+            <!--<item-->
+                <!--android:id="@+id/first"-->
+                <!--android:icon="@drawable/setting"-->
+                <!--android:title="알림보내기" />-->
+            <!--<item-->
+                <!--android:id="@+id/second"-->
+                <!--android:icon="@drawable/setting2"-->
+                <!--android:title="GPS" />-->
+        <!--</menu>-->
+    <!--</item>-->
 
     <item
         android:id="@+id/logout"

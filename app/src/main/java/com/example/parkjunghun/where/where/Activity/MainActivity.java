@@ -17,7 +17,6 @@ import com.example.parkjunghun.where.where.Adapter.ViewPagerAdapter;
 import com.example.parkjunghun.where.where.Fragment.InfoFragment;
 import com.example.parkjunghun.where.where.Fragment.LogoutFragment;
 import com.example.parkjunghun.where.where.Fragment.MyInfoFragment;
-import com.example.parkjunghun.where.where.Fragment.SettingFragment;
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private DrawerLayout drawerLayout;
@@ -62,14 +61,6 @@ public class MainActivity extends AppCompatActivity {
                     getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new MyInfoFragment()).commit();
                 }
 
-                if (item.getItemId() == R.id.first) {
-                    getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new SettingFragment()).commit();
-                }
-
-                if (item.getItemId() == R.id.second) {
-                    getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new SettingFragment()).commit();
-
-                }
                 if (item.getItemId() == R.id.howuse) {
                     getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new InfoFragment()).commit();
                 }

@@ -8,5 +8,5 @@
     <item
         android:id="@+id/mymap2"
         android:icon="@drawable/bottom2"
-        android:title="Map2"></item>
+        android:title="Service"></item>
 </menu>

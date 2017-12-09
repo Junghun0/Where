@@ -190,4 +190,5 @@ public class Map2Fragment extends Fragment {
             startActivity(intent);
         }
     }
+
 }
