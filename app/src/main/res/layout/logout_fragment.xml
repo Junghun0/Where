@@ -3,4 +3,19 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:background="#343446"
     android:layout_height="match_parent">
+    <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="로그아웃"
+            android:gravity="center"
+            android:layout_marginBottom="35dp"
+            android:textSize="25dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="logout"
+            android:id="@+id/logout"
+            android:background="@color/accent_material_dark_1"
+            android:layout_gravity="center"/>
 </LinearLayout>

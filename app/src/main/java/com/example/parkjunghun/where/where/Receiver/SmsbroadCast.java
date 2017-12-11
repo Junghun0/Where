@@ -31,7 +31,6 @@ public class SmsbroadCast extends BroadcastReceiver {
             }
             String Message = smsMessage[0].getMessageBody().toString();
 
-
             if(Message.equals("노래모드 ON")){
                 code =1;
                 map2Fragment.setPlayMusic(code);

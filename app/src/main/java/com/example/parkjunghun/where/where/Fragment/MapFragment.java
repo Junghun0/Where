@@ -98,6 +98,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         findEditText.setFocusable(false);
         findEditText.setClickable(false);
 
+
+
         currentEditText = (EditText) view.findViewById(R.id.currentEditText);
         currentEditText.setFocusable(false);
         currentEditText.setClickable(false);
@@ -121,9 +123,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             longitude = location.getLongitude();
                             latitude = location.getLatitude();
 
-                            float accuracy = location.getAccuracy();
                             String provider = location.getProvider();
-                            Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude + "\n경도 : " + latitude + "\n고도 : " + accuracy);
+                            Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude + "\n경도 : " + latitude);
                             Log.e("test", "번호같음");
                             users = new User();
                             users.setLongitude(longitude);
