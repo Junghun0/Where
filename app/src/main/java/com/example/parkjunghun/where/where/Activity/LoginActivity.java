@@ -36,6 +36,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     CheckBox checkBox;
     SharedPreferences autologin;
     SharedPreferences.Editor editor;
+    String ID;
+    String PW;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +59,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         textviewSingin.setOnClickListener(this);
         textviewFindPassword.setOnClickListener(this);
 
-
         autologin = getSharedPreferences("setting", 0);
         editor= autologin.edit();
 
@@ -67,17 +68,24 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             checkBox.setChecked(true);
         }
 
+
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // TODO Auto-generated method stub
                 if(isChecked){
-                    String ID = editTextEmail.getText().toString();
-                    String PW = editTextPassword.getText().toString();
+                    ID = editTextEmail.getText().toString();
+                    PW = editTextPassword.getText().toString();
 
                     editor.putString("ID", ID);
                     editor.putString("PW", PW);
                     editor.putBoolean("autologin", true);
+
+                    if(ID.equals(autologin.getString("ID",ID)) && PW.equals(autologin.getString("PW",PW))){
+                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                        startActivity(intent);
+                    }
+
                     editor.commit();
                 }else{
                     editor.clear();

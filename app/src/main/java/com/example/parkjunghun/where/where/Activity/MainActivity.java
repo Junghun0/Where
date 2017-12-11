@@ -1,5 +1,8 @@
 package com.example.parkjunghun.where.where.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,15 +14,18 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.parkjunghun.where.R;
 import com.example.parkjunghun.where.where.Adapter.ViewPagerAdapter;
 import com.example.parkjunghun.where.where.Fragment.InfoFragment;
-import com.example.parkjunghun.where.where.Fragment.LogoutFragment;
 import com.example.parkjunghun.where.where.Fragment.MyInfoFragment;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private DrawerLayout drawerLayout;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +72,21 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 if (item.getItemId() == R.id.logout) {
-                    getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new LogoutFragment()).commit();
+                    new AlertDialog.Builder(getApplicationContext()).setTitle("로그아웃").setMessage("로그아웃하시겠습니까").setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            firebaseAuth = FirebaseAuth.getInstance();
+                            firebaseAuth.signOut();
+                            Toast.makeText(MainActivity.this, "로그아웃되었습니다.", Toast.LENGTH_SHORT).show();
+                            Intent intent  = new Intent(getApplicationContext(), LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {}
+                    }).create().show();
+                    //getFragmentManager().beginTransaction().addToBackStack("TEXT_VIEWER_BACKSTACK").replace(R.id.main_framelayout, new LogoutFragment()).commit();
+
                 }
                 drawerLayout.closeDrawer(GravityCompat.START);
                 return true;

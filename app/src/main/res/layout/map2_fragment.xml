@@ -87,11 +87,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="80dp"
-            android:text="알림보내기"
+            android:text="소리/진동"
             android:textSize="35dp" />
 
         <Switch
-            android:id="@+id/noti_switch"
+            android:id="@+id/vibrate_switch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="90dp"

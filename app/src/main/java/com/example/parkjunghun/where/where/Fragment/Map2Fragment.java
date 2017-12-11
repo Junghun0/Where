@@ -2,16 +2,15 @@ package com.example.parkjunghun.where.where.Fragment;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.Nullable;
-import android.support.v4.app.NotificationCompat;
 import android.telephony.SmsManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
@@ -35,9 +34,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by parkjunghun on 2017. 11. 3..
@@ -66,6 +62,7 @@ public class Map2Fragment extends Fragment {
 
     private String gpsEnabled;
     private Switch gpsSwitch;
+    private Switch stateSwitch;
 
     @SuppressWarnings("MissingPermission")
     @Nullable
@@ -76,9 +73,13 @@ public class Map2Fragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         playMusic = (Switch) view.findViewById(R.id.play_sing);
         lockScreen = (Switch) view.findViewById(R.id.lock_screen);
+        stateSwitch = (Switch)view.findViewById(R.id.vibrate_switch);
 
         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getContext().TELEPHONY_SERVICE);
         phonenum = telephonyManager.getLine1Number();
+
+        final AudioManager audioManager = (AudioManager)getActivity().getSystemService(getContext().AUDIO_SERVICE);
+        audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -113,6 +114,18 @@ public class Map2Fragment extends Fragment {
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {}
+        });
+
+        stateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked==false){
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                }
+                else{
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                }
+            }
         });
 
         userRef.addValueEventListener(new ValueEventListener() {
