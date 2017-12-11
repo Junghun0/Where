@@ -77,6 +77,7 @@ public class Map2Fragment extends Fragment {
 
         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getContext().TELEPHONY_SERVICE);
         phonenum = telephonyManager.getLine1Number();
+        Log.e("phonenum2","num = "+phonenum);
 
         final AudioManager audioManager = (AudioManager)getActivity().getSystemService(getContext().AUDIO_SERVICE);
         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);

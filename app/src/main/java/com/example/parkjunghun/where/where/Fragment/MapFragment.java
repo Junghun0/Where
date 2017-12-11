@@ -79,7 +79,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
 
     double longitude;
     double latitude;
-    private String phonenum;
+    String phonenum;
     private User users;
 
     EditText findEditText;
@@ -192,7 +192,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                     locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 100, 1, (android.location.LocationListener) mLocationListener);
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 1, (android.location.LocationListener) mLocationListener);
                 } else {
-                    locationRef = firebaseDatabase.getReference("Location");
+                    locationRef = firebaseDatabase.getReference("users");
                     locationRef.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {

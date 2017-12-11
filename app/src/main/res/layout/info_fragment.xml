@@ -1,16 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:background="#343446"
     android:layout_height="match_parent">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        >
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="사용법화면!!"
-        android:textSize="30dp"
+        android:layout_height="match_parent"
+        android:text="이용 방법"
+        android:textSize="35dp"
         android:gravity="center"
-        android:textColor="#ededf2"
+        android:textColor="#5dada5"
         />
 
+    </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="1. 내폰 위치찾기를 눌러서 잃어버린 핸드폰의 위치를 찾습니다."
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="2. 현재 위치찾기를 눌러서 현재 위치를       찾습니다."
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="3. 길찾기를 눌러서 현재위치와 잃어버린    핸드폰의 길을 찾습니다."
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="4. 노래 설정을 활성화 시키면 잃어버린 핸드폰에 노래를 틀 수 있습니다."
+            android:textSize="20dp" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="5. 화면 잠금을 활성화 시켜서 잃어버린 핸드폰을 아무도 사용못하게 화면을 잠글 수       있습니다."
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="6. GPS설정을 활성화 시켜서 잃어버린 핸드폰의 위치 서비스를 킬 수 있습니다."
+            android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:text="7. 소리/진동을 활성화 시켜서 소리 모드를 바꿀 수 있습니다."
+            android:textSize="20dp" />
 </LinearLayout>

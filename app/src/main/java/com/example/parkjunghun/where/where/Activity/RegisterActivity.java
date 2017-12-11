@@ -57,7 +57,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         setContentView(R.layout.activity_register);
 
         TelephonyManager telephonyManager = (TelephonyManager) this.getSystemService(this.TELEPHONY_SERVICE);
-        phonenum = telephonyManager.getLine1Number();
+        try {
+            phonenum = telephonyManager.getLine1Number();
+            phonenum = phonenum.replace("+82", "0");
+            Log.d("editText", phonenum + "");
+        }
+        catch (Exception e){
+
+        }
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
