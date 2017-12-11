@@ -22,7 +22,6 @@ import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.parkjunghun.where.R;
-import com.example.parkjunghun.where.where.Activity.LockActivity;
 import com.example.parkjunghun.where.where.Model.ReceiveEvent;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -73,13 +72,12 @@ public class Map2Fragment extends Fragment {
         mContext = getActivity().getApplicationContext();
         playMusic = (Switch) view.findViewById(R.id.play_sing);
         lockScreen = (Switch) view.findViewById(R.id.lock_screen);
-        stateSwitch = (Switch)view.findViewById(R.id.vibrate_switch);
+        stateSwitch = (Switch) view.findViewById(R.id.vibrate_switch);
 
         TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getContext().TELEPHONY_SERVICE);
         phonenum = telephonyManager.getLine1Number();
-        Log.e("phonenum2","num = "+phonenum);
 
-        final AudioManager audioManager = (AudioManager)getActivity().getSystemService(getContext().AUDIO_SERVICE);
+        final AudioManager audioManager = (AudioManager) getActivity().getSystemService(getContext().AUDIO_SERVICE);
         audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -91,57 +89,32 @@ public class Map2Fragment extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 smsNum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
 
-                if(smsNum.equals(phonenum)){
+                if (smsNum.equals(phonenum)) {
                     playMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            Toast.makeText(getActivity().getApplicationContext(),"당신의 핸드폰 입니다.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity().getApplicationContext(), "당신의 핸드폰 입니다.", Toast.LENGTH_SHORT).show();
                         }
                     });
-                }else{
+                    lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                        @Override
+                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                            Toast.makeText(getActivity().getApplicationContext(), "당신의 핸드폰 입니다.", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                } else {
                     playMusic.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                             if (isChecked == true) {
-                                Log.d("smsNum",smsNum+"");
+                                Log.d("smsNum", smsNum + "");
                                 sendSMS(smsNum, playMusicOn);
                             } else {
-                                Log.d("smsNum",smsNum+"");
+                                Log.d("smsNum", smsNum + "");
                                 sendSMS(smsNum, playMusicOff);
                             }
                         }
                     });
-                }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        });
-
-        stateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if(isChecked==false){
-                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
-                }
-                else{
-                    audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
-                }
-            }
-        });
-
-        userRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                smsNum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
-
-                if(smsNum.equals(phonenum)){
-                    lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                        @Override
-                        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                            Toast.makeText(getActivity().getApplicationContext(),"당신의 핸드폰 입니다.",Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }else{
                     lockScreen.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                         @Override
                         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -152,10 +125,13 @@ public class Map2Fragment extends Fragment {
                             }
                         }
                     });
+
                 }
             }
+
             @Override
-            public void onCancelled(DatabaseError databaseError) {}
+            public void onCancelled(DatabaseError databaseError) {
+            }
         });
 
         gpsSwitch = (Switch) view.findViewById(R.id.gps_switch);
@@ -169,13 +145,24 @@ public class Map2Fragment extends Fragment {
                 }
             }
         });
+
+        stateSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked == false) {
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
+                } else {
+                    audioManager.setRingerMode(AudioManager.RINGER_MODE_VIBRATE);
+                }
+            }
+        });
+
         return view;
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        getPlayMusicCode();
     }
 
     @Override
@@ -190,6 +177,12 @@ public class Map2Fragment extends Fragment {
         EventBus.getDefault().unregister(this);
     }
 
+    @SuppressWarnings("MissingPermission")
+    @Override
+    public void onPause() {
+        super.onPause();
+    }
+
     public void sendSMS(String smsNumber, String smsText) {
         PendingIntent sentIntent = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_SENT_ACTION"), 0);
         PendingIntent deliveredIntent = PendingIntent.getBroadcast(mContext, 0, new Intent("SMS_DELIVERED_ACTION"), 0);
@@ -198,16 +191,8 @@ public class Map2Fragment extends Fragment {
         mSmsManager.sendTextMessage(smsNumber, null, smsText, sentIntent, deliveredIntent);
     }
 
-    public void setPlayMusic(int playMusicCode) {
-        this.code = playMusicCode;
-    }
-
-    public int getPlayMusicCode() {
-        return code;
-    }
-
     @Subscribe
-    public void playMusic(ReceiveEvent event){
+    public void playMusic(ReceiveEvent event) {
         code = event.getCode();
         Log.d("test", code + "");
 
@@ -217,16 +202,11 @@ public class Map2Fragment extends Fragment {
             mp.start();
             Toast.makeText(getActivity().getApplicationContext(), "노래모드 실행", Toast.LENGTH_SHORT).show();
         }
-        if(code == 0){
+        if (code == 0) {
             mp.stop();
             Toast.makeText(getActivity().getApplicationContext(), "노래정지모드 실행", Toast.LENGTH_SHORT).show();
         }
-        if(code == 2){
-            Intent intent = new Intent(getActivity(), LockActivity.class);
-            startActivity(intent);
-        }
     }
-
 
 
     private boolean checkGPS1() {
@@ -240,13 +220,14 @@ public class Map2Fragment extends Fragment {
                 }
             }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {}
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
             }).create().show();
         }
         return true;
     }
 
-    private boolean checkGPS2(){
+    private boolean checkGPS2() {
         gpsEnabled = android.provider.Settings.Secure.getString(getActivity().getApplicationContext().getContentResolver(), Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
         if ((gpsEnabled.matches(".*gps.*") && gpsEnabled.matches(".*network.*"))) {
             new AlertDialog.Builder(getActivity()).setTitle("GPS").setMessage("GPS를 활성화하지 않겠습니까?").setPositiveButton("하기", new DialogInterface.OnClickListener() {
@@ -257,7 +238,8 @@ public class Map2Fragment extends Fragment {
                 }
             }).setNegativeButton("취소", new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialogInterface, int i) {}
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
             }).create().show();
         }
         return true;

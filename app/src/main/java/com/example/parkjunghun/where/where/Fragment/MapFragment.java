@@ -111,7 +111,10 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
         userRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                String pnum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
+                final String email = dataSnapshot.child(firebaseUser.getUid()).child("email").getValue(String.class);
+                final String pnum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
+                final String name = dataSnapshot.child(firebaseUser.getUid()).child("name").getValue(String.class);
+                final String password = dataSnapshot.child(firebaseUser.getUid()).child("password").getValue(String.class);
 
                 TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getContext().TELEPHONY_SERVICE);
                 phonenum = telephonyManager.getLine1Number();
@@ -126,10 +129,15 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                             String provider = location.getProvider();
                             Log.e("test", "위치정보 : " + provider + "\n위도 : " + longitude + "\n경도 : " + latitude);
                             Log.e("test", "번호같음");
+
                             users = new User();
                             users.setLongitude(longitude);
                             users.setLatitude(latitude);
-                            FirebaseDatabase.getInstance().getReference().child("Location").child(firebaseUser.getUid()).setValue(users);
+                            users.setEmail(email);
+                            users.setName(name);
+                            users.setPassword(password);
+                            users.setPhonenum(pnum);
+                            FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid()).setValue(users);
 
                             findPhone = (Button) view.findViewById(R.id.findmyphpne);
                             findPhone.setOnClickListener(new View.OnClickListener() {
@@ -161,7 +169,7 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                                 public void onClick(View v) {
                                     gMap.clear();
                                     rentPhoneLocation = new LatLng(latitude, longitude);
-                                    gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("내폰위치"));
+                                    gMap.addMarker(new MarkerOptions().position(myPhoneLocation).title("내폰위치").icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                                     gMap.moveCamera(CameraUpdateFactory.newLatLngZoom(rentPhoneLocation, 14));
                                     gMap.animateCamera(CameraUpdateFactory.zoomTo(14), 2000, null);
 

@@ -81,11 +81,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     editor.putString("PW", PW);
                     editor.putBoolean("autologin", true);
 
-                    if(ID.equals(autologin.getString("ID",ID)) && PW.equals(autologin.getString("PW",PW))){
-                        Intent intent = new Intent(LoginActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }
-
                     editor.commit();
                 }else{
                     editor.clear();
