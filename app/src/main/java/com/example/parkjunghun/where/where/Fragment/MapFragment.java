@@ -91,18 +91,19 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         final View view = inflater.inflate(R.layout.map_fragment, null);
-
         final NotificationManager nm = (NotificationManager) getContext().getSystemService(getContext().NOTIFICATION_SERVICE);
+        final LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
 
         findEditText = (EditText) view.findViewById(R.id.findEditText);
         findEditText.setFocusable(false);
         findEditText.setClickable(false);
 
-
-
         currentEditText = (EditText) view.findViewById(R.id.currentEditText);
         currentEditText.setFocusable(false);
         currentEditText.setClickable(false);
+
+        TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getContext().TELEPHONY_SERVICE);
+        phonenum = telephonyManager.getLine1Number();
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -115,12 +116,8 @@ public class MapFragment extends Fragment implements OnMapReadyCallback {
                 final String pnum = dataSnapshot.child(firebaseUser.getUid()).child("phonenum").getValue(String.class);
                 final String name = dataSnapshot.child(firebaseUser.getUid()).child("name").getValue(String.class);
                 final String password = dataSnapshot.child(firebaseUser.getUid()).child("password").getValue(String.class);
-
-                TelephonyManager telephonyManager = (TelephonyManager) getActivity().getSystemService(getContext().TELEPHONY_SERVICE);
-                phonenum = telephonyManager.getLine1Number();
-
                 if (phonenum.equals(pnum)) {
-                    final LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
+
                     final LocationListener mLocationListener = new LocationListener() {
                         public void onLocationChanged(Location location) {
                             longitude = location.getLongitude();

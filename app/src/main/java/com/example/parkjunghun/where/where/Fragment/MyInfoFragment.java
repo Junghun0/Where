@@ -26,7 +26,6 @@ public class MyInfoFragment extends Fragment {
     private TextView username;
     private TextView userphone;
     private TextView usermail;
-    private TextView phonelocation;
 
     private FirebaseUser firebaseUser;
     private FirebaseDatabase firebaseDatabase;
@@ -39,7 +38,6 @@ public class MyInfoFragment extends Fragment {
         username = (TextView) view.findViewById(R.id.username);
         userphone = (TextView) view.findViewById(R.id.userphone);
         usermail = (TextView) view.findViewById(R.id.usermail);
-        phonelocation = (TextView) view.findViewById(R.id.phonelocation);
 
         firebaseDatabase = FirebaseDatabase.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

@@ -79,4 +79,12 @@
             android:layout_weight="1"
             android:text="7. 소리/진동을 활성화 시켜서 소리 모드를 바꿀 수 있습니다."
             android:textSize="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_weight="1"
+            android:textSize="20dp" />
+
 </LinearLayout>
